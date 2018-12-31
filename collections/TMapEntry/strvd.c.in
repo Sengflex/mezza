@@ -1,0 +1,12 @@
+#include "generator.h"
+
+static void TMapEntryStrVoid_cleaner(TObject obj, void *extra) {
+	TMapEntryStrVoid *entry = obj;
+	
+	if(entry->key)
+		TObject_Destroy(entry->key, NULL);
+}
+
+GENERATE_DEFINE_TMAP(TMapEntryStrVoid, TString, void *, TMapEntryStrVoid_cleaner)
+
+

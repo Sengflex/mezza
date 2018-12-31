@@ -1,0 +1,8 @@
+#ifndef MZ_TMAPENTRY_H
+#define MZ_TMAPENTRY_H
+
+#include "generator.h"
+
+GENERATE_DECL_TMAPENTRY(MapEntryStrVoid, TString, void *)
+
+#endif /* MZ_TMAPENTRY_H */

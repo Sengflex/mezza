@@ -1,0 +1,5 @@
+
+
+#include "generator.h"
+
+GENERATE_DECL_TMAP(_Strvd, TString, void *)
