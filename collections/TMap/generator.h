@@ -26,7 +26,7 @@
 			} \
 		} \
 		 \
-		if( VALUEERROR == VALATTRIB_FUNC (entry->value, value) ) \
+		if( VALUEERROR == VALATTRIB_FUNC (&entry->value, value) ) \
 			throw_note(ExceptionTMapSetEntry, VALUEERROR, "Atribuição de valor à entrada") \
 		 \
 		map->entriesSize++; \

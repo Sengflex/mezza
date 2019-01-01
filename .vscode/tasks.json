@@ -28,12 +28,42 @@
             }
         },
         {
+            "label": "Static Library - Clean",
+            "type": "shell",
+            "command": "make",
+            "args": ["clean"],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [
+                "$gcc"
+            ]
+        },
+        {
             "label": "Tests",
             "type": "shell",
             "command": "make",
             "args": [
                 "-C",
                 "mezza_tests"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [
+                "$gcc"
+            ]
+        },
+        {
+            "label": "Tests - Clean",
+            "type": "shell",
+            "command": "make",
+            "args": [
+                "-C",
+                "mezza_tests",
+                "clean"
             ],
             "group": {
                 "kind": "build",

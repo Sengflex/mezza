@@ -17,12 +17,14 @@
 TEST_MAIN
 
 TEST_USE_TEST(mem_all)
+TEST_USE_TEST(excptions_all)
 TEST_USE_TEST(object_all)
 TEST_USE_TEST(list_all)
 TEST_USE_TEST(str_all)
 TEST_USE_TEST(file_all)
 TEST_USE_TEST(dbase_all)
 TEST_USE_TEST(collections_all)
+TEST_USE_TEST(conf_all)
 
 int main2();
 
@@ -32,12 +34,14 @@ int main() {
     TEST_SWITH_SHOW_TOTAL
 
     TEST_CALL_TEST_MODULE(mem_all)
+    TEST_CALL_TEST_MODULE(excptions_all)
     TEST_CALL_TEST_MODULE(object_all)
     TEST_CALL_TEST_MODULE(list_all)
     TEST_CALL_TEST_MODULE(str_all)
     TEST_CALL_TEST_MODULE(file_all)
     TEST_CALL_TEST_MODULE(dbase_all)
     TEST_CALL_TEST_MODULE(collections_all)
+    TEST_CALL_TEST_MODULE(conf_all)
 
     TEST_SUMMARY
 

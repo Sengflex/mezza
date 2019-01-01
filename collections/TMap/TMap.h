@@ -15,13 +15,32 @@
     define_exception(ExceptionTMapNotFoundEntry, "Entrada nao encontrada no mapa")
 #endif
 
+extern void *TREAT_VALUE_AS_OBJECT;
+
 typedef int (*FMapFinder)(char *key, char *value, void *data);
 
 typedef struct Map {
     TList *entries;
     TSize  entriesSize;
 } TMap;
-
+/**
+ * Cria e retorna um mapa
+ * 
+ * Parâmetros:
+ * - memmgr: Gerenciador de memória
+ * 
+ * Retorno:
+ * NULL em caso de erro.
+ * 
+ * Exceções:
+ * ExceptionTMapCreation
+ * 
+ * Destruição: 
+ * Ao chamar TObject_Destroy, o segundo parâmetro deve 
+ * ser TREAT_VALUE_AS_OBJECT caso se deseje que os valores nos pares 
+ * sejam tratados como objetos e destruído assim como as chaves são 
+ * por padrão
+*/
 TMap *TMap_Create(TMemMgr *memmgr);
 
 #endif /* MZ_COLLTMAP_TMAP_H */

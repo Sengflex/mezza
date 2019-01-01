@@ -10,7 +10,7 @@
             "request": "launch",
             "program": "${workspaceFolder}/mezza_tests/build/mezza_tests.exec",
             "args": [],
-            "stopAtEntry": true,
+            "stopAtEntry": false,
             "cwd": "${workspaceFolder}/mezza_tests/build",
             "environment": [{"name":"LD_LIBRARY_PATH","value":"${workspaceFolder}/../sqlite3/build"}],
             "externalConsole": false,

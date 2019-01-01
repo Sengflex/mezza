@@ -1,8 +1,8 @@
 
 #include "generator.h"
 
-void * valattrib_strvd (void *value1, void *value2) {
-	return value1 = value2;
+void * valattrib_strvd (void **value1, void *value2) {
+	return *value1 = value2;
 }
 
 GENERATE_DEFINE_TMAP(_Strvd, TString, strcmp,  void *, valattrib_strvd, NULL, TTMapEntryStrVoid, TTMapEntryStrVoid_Create)

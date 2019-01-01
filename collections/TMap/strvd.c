@@ -5,7 +5,7 @@
 #include "../../base/TObject.h"
 #include "../TMapEntry/strvd.h"
 
-void *valattrib_strvd(void *value1, void *value2) { return value1 = value2; }
+void *valattrib_strvd(void **value1, void *value2) { return *value1 = value2; }
 
 void *TMap_SetEntry_Strvd(TMap *map, TString key, void *value) {
   TLstNod *nodeKey;
@@ -22,7 +22,7 @@ void *TMap_SetEntry_Strvd(TMap *map, TString key, void *value) {
       throw_note(ExceptionTMapSetEntry, NULL, "Adicao de entrada à lista")
     }
   }
-  if (NULL == valattrib_strvd(entry->value, value))
+  if (NULL == valattrib_strvd(&entry->value, value))
     throw_note(ExceptionTMapSetEntry, NULL, "Atribuição de valor à entrada")
         map->entriesSize++;
   return value;

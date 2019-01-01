@@ -8,6 +8,8 @@
 #include <mezza/base/TMemMgr.h>
 #include <mezza/base/TObject.h>
 #include <mezza/collections/TTokenSet.h>
+#include <mezza/collections/TMap/TMap.h>
+#include <mezza/collections/TMap/strvd.h>
 #include <mezza/collections/TMapEntry/TMapEntry.h>
 #include <mezza/collections/TMapEntry/strvd.h>
 
@@ -72,7 +74,6 @@ TEST_IMPL_TEST(_tokenset_all) {
 	tokenset1 = TObject_Destroy(tokenset1, NULL);
 }
 
-
 TEST_IMPL_TEST(_mapentry_strvd_all) {
 	TMapEntryStrVoid *entry1 = NULL;
 	TMemMgr memmgr;
@@ -85,11 +86,53 @@ TEST_IMPL_TEST(_mapentry_strvd_all) {
 	TEST_ASSERT_FATAL(entry1, "Falha de criação")
 	TEST_ASSERT(entry1->key==key1, "Falha de inicializacao.")
 	TEST_ASSERT(0==strcmp(entry1->key, key1), "Conteúdo da chave não corresponde ao fornecido.")
+	TEST_ASSERT(entry1->value == pvalue1, "Valor da chave está errado")
+}
+
+TEST_IMPL_TEST(_map_strvd_all) {
+	TMap *map1;
+	TMemMgr memmgr;
+	TString key1;
+	int value1=191;
+	TString key2;
+	int value2=192;
+	TString key3;
+	int value3=193;
+	void *pvalue1=&value1;
+	void *pvalue2=&value2;
+	void *pvalue3=&value3;
+	void *ret1;
+	void *retValueForKey2;
+
+	map1 = TMap_Create(TMemMgr_Init(&memmgr));
+	TEST_ASSERT(map1, "Falha de criação")
+
+	TEST_CHECK_PREPARATION(key1 = TString_Create(&memmgr, "key one", 0))
+	ret1 = TMap_SetEntry_Strvd(map1, key1, pvalue1);
+	TEST_ASSERT(ret1==pvalue1, "Falha de retorno")
+
+	TEST_CHECK_PREPARATION(key2 = TString_Create(&memmgr, "key two", 0))
+	TEST_CHECK_PREPARATION(TMap_SetEntry_Strvd(map1, key2, pvalue2))
+	TEST_CHECK_PREPARATION(key3 = TString_Create(&memmgr, "key three", 0))
+	TEST_CHECK_PREPARATION(TMap_SetEntry_Strvd(map1, key3, pvalue3))
+
+	retValueForKey2 = TMap_GetEntry_Strvd(map1, "key two");
+	TEST_ASSERT(retValueForKey2==pvalue2, "Falha de obtenção de valor da chave")
+
+	retValueForKey2 = TMap_SetEntry_Strvd(map1, "key two", pvalue3);
+	TEST_ASSERT(retValueForKey2==pvalue3, "Falha de retorno")
+
+	retValueForKey2 = TMap_GetEntry_Strvd(map1, "key two");
+	TEST_ASSERT(retValueForKey2==pvalue3, "Falha de obtenção de valor da chave após reatribuição")
+
+	TMap_UnsetEntry_Strvd(map1, "key two");
+	retValueForKey2 = TMap_GetEntry_Strvd(map1, "key two");
+	TEST_ASSERT(retValueForKey2==NULL, "Falha de retorno. Chave não deveria existir")
 }
 
 TEST_IMPL_TEST(collections_all) {
     TEST_CALL_TEST(_tokenset_all)
-    TEST_CALL_TEST(_mapentry_strvd_all
-     )
+    TEST_CALL_TEST(_mapentry_strvd_all)
+    TEST_CALL_TEST(_map_strvd_all)
 }
 

@@ -6,7 +6,7 @@
 
 void tmapCleaner(TObject obj, void *treatValueAsTObject);
 
-
+void *TREAT_VALUE_AS_OBJECT = (void *)0x1;
 
 TMap *TMap_Create(TMemMgr *memmgr) {
 	TMap *map = NULL;

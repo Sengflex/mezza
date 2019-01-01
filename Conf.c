@@ -1,3 +1,4 @@
+#define MZ_CONF_IMPLEMENT
 #include "Conf.h"
 
 #include <stdio.h>
@@ -96,4 +97,51 @@ TStatus   Conf_SaveToFile(TMap *confsMap, char *filename) {
 	}
 
 	return OK;
+}
+
+TStatus Conf_Set(TMap *confsMap, char *conf, char *value) {
+	TLstNod          *entryNode = NULL;
+	TMapEntryStrVoid *entry     = NULL;
+	TString           key       = NULL;
+	TString           value2    = NULL;
+
+	try(cnfst_001)
+		entryNode = TMap_GetEntryNode_Strvd(confsMap, conf);
+
+		if(entryNode) {
+			entry = (TMapEntryStrVoid *)entryNode->item;
+			TString_Copy(entry->value, value, 0); 
+				check_note(cnfst_001, "Copiando novo valor de configuração")
+		} else {
+
+			key = TString_Create(TObject_ManagerOf(confsMap), conf, 0);
+				check_note(cnfst_001, "Alocando memória para a chave")
+
+			value2 = TString_Create(TObject_ManagerOf(confsMap), value, 0);
+				check_note(cnfst_001, "Alocando memória para o valor")
+
+			TMap_SetEntry_Strvd(confsMap, key, value2);
+				check_note(cnfst_001, "Adicinando novo par ao mapa")
+		}
+	catch_quickly(cnfst_001)
+		if(key) TObject_Destroy(key, NULL);
+		if(value2) TObject_Destroy(value2, NULL);
+		throw_note(ExceptionConfSet, FAIL, _TRY_NOTE_)
+	end_try(cnfst_001)
+
+	return OK;
+}
+
+TString Conf_Get(TMap *confsMap, char *conf) {
+	TLstNod          *entryNode = NULL;
+	TMapEntryStrVoid *entry     = NULL;
+
+	entryNode = TMap_GetEntryNode_Strvd(confsMap, conf);
+
+	onerror(entryNode)
+		throw(ExceptionConfNotFound, NULL)
+
+	entry = (TMapEntryStrVoid *)entryNode->item;
+
+	return entry->value;
 }

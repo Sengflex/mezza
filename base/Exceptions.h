@@ -72,6 +72,7 @@
 				strcpy(localFileName, __FILE__); \
 				Exceptions_AddException(& EXP, localFileName, __LINE__, NOTE); \
 				if( flags & CONTINUE_FLAG ) { \
+				    flags |= _GOTEXCEPTION_FLAG; \
                     if(setjmp(continue_jmp_##ID)) \
                         return RET; \
                     goto continue_this_##ID;\
@@ -79,13 +80,14 @@
                 else \
                     return RET; }
 
-#define throw_local(ID, EXP) throw_local_note(EXP, NULL)
+#define throw_local(ID, EXP) throw_local_note(ID, EXP, NULL)
 
 #define throw_local_note(ID, EXP, NOTE) { \
 				char localFileName[500]; \
 				strcpy(localFileName, __FILE__); \
 				Exceptions_AddException(& EXP, localFileName, __LINE__, NOTE); \
 				if( flags & CONTINUE_FLAG ) { \
+				    flags |= _GOTEXCEPTION_FLAG; \
                     if(setjmp(continue_jmp_##ID)) \
                         goto handle_this_##ID; \
                     goto continue_this_##ID;\
