@@ -3,12 +3,20 @@
 #
 #
 #
+NAME := mezza
+VERSION := 0.1.0
 
 OUTDIR := build
 SRCDIRS  := base collections collections/TMap collections/TMapEntry dbase interfaces/dbase  str
 SRCs   :=  $(wildcard *.c) $(foreach dir,$(SRCDIRS),$(wildcard $(dir)/*.c))
 OBJs   := $(patsubst %.c,$(OUTDIR)/%.o,$(SRCs))
 OUTDIR.subdirs := $(addprefix $(OUTDIR)/,$(SRCDIRS))
+
+PACKDIR := $(OUTDIR)/package
+HEADERS := $(wildcard *.h) $(foreach dir,$(SRCDIRS),$(wildcard $(dir)/*.h))
+DESTHEADERS := $(patsubst %.h,$(PACKDIR)/include/$(NAME)/%.h,$(HEADERS))
+DESTHEADERS.subdirs := $(addprefix $(PACKDIR)/include/$(NAME)/,$(SRCDIRS))
+TGT.intalldir := $(PACKDIR)/lib
 
 TGT    := $(OUTDIR)/libmezza.a
 PREFIX := /usr/local
@@ -61,3 +69,17 @@ info:
 	@echo "TGT = $(TGT)"
 	@echo "PREFIX = $(PREFIX)"
 	@echo "CFLAGS = $(CFLAGS)"
+	@echo "HEADERS = $(HEADERS)"
+	@echo "DESTHEADERS = $(DESTHEADERS)"
+	@echo "DESTHEADERS.subdirs = $(DESTHEADERS.subdirs)"
+
+pack: $(DESTHEADERS.subdirs) $(TGT.intalldir)
+	make $(DESTHEADERS)
+	cp $(TGT) $(TGT.intalldir)
+	cd $(PACKDIR) && tar -zcvf $(NAME)_$(VERSION).tar.gz include lib
+
+$(PACKDIR)/include/$(NAME)/%.h: %.h
+	cp $< $@
+
+$(DESTHEADERS.subdirs) $(TGT.intalldir):
+	mkdir -p $@
