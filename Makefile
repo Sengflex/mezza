@@ -24,7 +24,10 @@ CFLAGS := -g -Wall -I../sqlite3
 
 $(TGT): $(OUTDIR) $(OUTDIR.subdirs) $(OBJs)
 	ar -cr $(TGT) $(OBJs)
-	
+
+release: clean
+	make CFLAGS="-Wall -I../sqlite3" pack
+
 $(OUTDIR)/%.o: %.c
 	gcc $(CFLAGS) -c -o $@ $<
 	
@@ -52,7 +55,7 @@ collections-TMapEntry-strvd.c:
 	./generate.sh collections/TMapEntry/strvd.h
 	
 clean:
-	rm -f $(TGT) $(OBJs)
+	rm -fR $(OUTDIR)
 
 install:
 	./install.sh $(PREFIX)
@@ -73,7 +76,7 @@ info:
 	@echo "DESTHEADERS = $(DESTHEADERS)"
 	@echo "DESTHEADERS.subdirs = $(DESTHEADERS.subdirs)"
 
-pack: $(DESTHEADERS.subdirs) $(TGT.intalldir)
+pack: $(TGT) $(DESTHEADERS.subdirs) $(TGT.intalldir)
 	make $(DESTHEADERS)
 	cp $(TGT) $(TGT.intalldir)
 	cd $(PACKDIR) && tar -zcvf $(NAME)_$(VERSION).tar.gz include lib
