@@ -48,12 +48,12 @@ struct DBField {
 };
 /**
  *
- * Throws: ExceptionDBFIeldCreation
+ * Dispara: ExceptionDBFIeldCreation
  * */
 TDBField *DBField_Create(TMemMgr *memmgr, char *name, TDBFieldType type, unsigned int contraints, char *defaultVal);
 /**
  * NOTE: pode ser desnecessario. Checar quando o módulo estiver completo
- * Throws: ExceptionDBFIeldVectorCreation
+ * Dispara: ExceptionDBFIeldVectorCreation
  * */
 TDBField *DBField_CreateVector(TMemMgr *memmgr, TDBField *staticFieldVec, TCount staticFieldVecSz);
 

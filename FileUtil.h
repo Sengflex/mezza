@@ -20,22 +20,22 @@ TSize     FileUtil_SizeOf( FILE *fp );
 TSize     FileUtil_TailSizeOf(FILE *fp);
 /**
  *
- * Throws: ExceptionFIleIOUnexpectedEOF
+ * Dispara: ExceptionFIleIOUnexpectedEOF
  * */
 TSize     FileUtil_SectionSizeOf( FILE *fp, int sep);
 /**
  *
- * Throws: ExceptionFIleIOUnexpectedEOF
+ * Dispara: ExceptionFIleIOUnexpectedEOF
  * */
 TPosition FileUtil_PositionOf( FILE *fp, int c);
 /**
  *
- * Throws: ExceptionFIleIOUnexpectedEOF
+ * Dispara: ExceptionFIleIOUnexpectedEOF
  * */
 TCount    FileUtil_SkipChars(FILE *fp, char *c);
 /**
  *
- * Throws: ExceptionFIleIOUnexpectedEOF
+ * Dispara: ExceptionFIleIOUnexpectedEOF
  * */
 TPosition FileUtil_PositionAtChar(FILE *fp, int c);
 

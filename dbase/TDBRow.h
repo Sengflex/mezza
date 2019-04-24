@@ -44,7 +44,7 @@
  *
  * @return Um objeto registro alocado e inicializado. NULL em caso de erro
  *
- * Throws: ExceptionDBRowCreation
+ * Dispara: ExceptionDBRowCreation
  * */
 TDBRow *TDBRow_Create(TMemMgr *memmgr, char **cells, TSize cellsSz);
 /**
@@ -63,7 +63,7 @@ TDBRow *TDBRow_Create(TMemMgr *memmgr, char **cells, TSize cellsSz);
  *
  * @return OK em caso de sucesso. FAIL em caso de a opera��o nao poder ser realizada
  *
- * Throws: ExceptionDBRowGet
+ * Dispara: ExceptionDBRowGet
  * */
 TStatus      TDBRow_Get(TMemMgr *memmgr, TDBRow *row, TCount nofParams, ...);
 
@@ -82,7 +82,7 @@ TStatus      TDBRow_Get(TMemMgr *memmgr, TDBRow *row, TCount nofParams, ...);
  *
  * @return OK em caso de sucesso. FAIL em caso de a opera��o nao poder ser realizada
  *
- * Throws: ExceptionDBRowSet
+ * Dispara: ExceptionDBRowSet
  * */
 TStatus      TDBRow_Set(TMemMgr *memmgr, TDBRow *row, TCount nofParams, ...);
 

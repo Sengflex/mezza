@@ -12,7 +12,7 @@
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}/mezza_tests/build",
-            "environment": [{"name":"LD_LIBRARY_PATH","value":"${workspaceFolder}/../sqlite3/build"}],
+            //"environment": [{"name":"LD_LIBRARY_PATH","value":"${workspaceFolder}/../sqlite3/build"}],
             "externalConsole": false,
             "MIMode": "gdb",
             "setupCommands": [

@@ -26,12 +26,12 @@ typedef void (*FObjDestructor)(TObject, void*);
 
 /**
  *
- * Throws: ExceptionTObjectCreation
+ * Dispara: ExceptionTObjectCreation
  * */
 TObject  TObject_Create (TMemMgr *memmgr, TSize sizeInBytes, FObjDestructor cleaner);
 /**
  *
- * Throws: ExceptionTObjectCreation
+ * Dispara: ExceptionTObjectCreation
  * */
 TObject  TObject_CreateZero(TMemMgr *memmgr, TSize sizeInBytes, FObjDestructor cleaner);
 
@@ -42,7 +42,7 @@ TObject  TObject_Destroy   (TObject addr, void *extra);
 TObject  TObject_DestroyByPassDtor(TObject addr, void *extra);
 /**
  *
- * Throws: ExceptionTObjectResize
+ * Dispara: ExceptionTObjectResize
  * */
 TObject  TObject_Resize    (TObject addr, TSize newSize);
 

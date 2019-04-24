@@ -11,8 +11,8 @@
 #include "../Type.h"
 #include "../base/TList.h"
 #include "../str/TString.h"
-#include "../interfaces/dbase/IDBConn.h"
-#include "../dbase/TDBField.h"
+#include "TSQLite3Conn.h"
+#include "TDBField.h"
 
 typedef struct DBTable      TDBTable;
 typedef struct DBRow         TDBRow;
@@ -27,7 +27,7 @@ struct DBTable {
     TId       availableId;
     TBool     isLoaded;
     TList    *rows;
-    IDBConn  *conn;
+    TSQLite3Conn  *conn;
     TList    *fields;
     TString   name;
 };

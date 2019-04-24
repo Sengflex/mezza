@@ -10,8 +10,9 @@
 #define MZ_DBASE_DBTABLE_IMPLEMENT
 #include "TDBTable.h"
 
-#include "../dbase/TDBRow.h"
-#include "../dbase/TDBField.h"
+#include "TDBRow.h"
+#include "TDBField.h"
+#include "TSQLite3Conn.h"
 #include "../OnError.h"
 #include "../base/TList.h"
 #include "../Lang.h"
@@ -124,7 +125,7 @@ static TString gen_create_table_sql(TMemMgr *memmgr, TDBTable *table) {
     return sql_ret;
 }
 
-static TDBTable *alloc_table(TMemMgr *memmgr, IDBConn *conn, char *name, TDBField *vfields, TCount vfieldsCount) {
+static TDBTable *alloc_table(TMemMgr *memmgr, TSQLite3Conn *conn, char *name, TDBField *vfields, TCount vfieldsCount) {
     TDBTable *ret = NULL;
     TDBField *newField=NULL;
 
@@ -262,7 +263,7 @@ static TStatus load_table_scheme(TDBTable *table) {
 
 			 schemeQueryResult = TString_Create(memmgr, NULL, 500); check(load_table_scheme_try001)
 
-			 table->conn->execSql(table->conn, sqlToGetScheme, table_scheme_sqlite_callback, &schemeQueryResult); check(load_table_scheme_try001)
+			TSQLite3Conn_ExecSQL(table->conn, sqlToGetScheme, table_scheme_sqlite_callback, &schemeQueryResult); check(load_table_scheme_try001)
 
 			 TObject_Destroy(sqlToGetScheme, NULL);
 		 }
@@ -328,7 +329,7 @@ static TStatus dbtable_load_table_data(TDBTable *table, char *where) {
 		}
 
 		/* Execulta a consulta e pôe os dados numa tabela */
-		table->conn->execSql(table->conn, sql, table_sqlite_callback, table); check(load_table_data_try001)
+		TSQLite3Conn_ExecSQL(table->conn, sql, table_sqlite_callback, table); check(load_table_data_try001)
 
 		TObject_Destroy(sql, NULL);
 		table->isLoaded = TRUE;
@@ -428,7 +429,7 @@ static void table_objdtor(TObject obj, void *ignore) {
  * 30-NOV-2018, Danilo:
  *  Documentada.
  */
-TDBTable *TDBTable_Create   (TMemMgr *memmgr, IDBConn *conn, char *name, TDBField *vfields, TCount vfieldsCount)
+TDBTable *TDBTable_Create   (TMemMgr *memmgr, TSQLite3Conn *conn, char *name, TDBField *vfields, TCount vfieldsCount)
 {
     TDBTable *table = NULL;
     TString create_sql;
@@ -444,7 +445,7 @@ TDBTable *TDBTable_Create   (TMemMgr *memmgr, IDBConn *conn, char *name, TDBFiel
 
         create_sql = gen_create_table_sql(memmgr, table); check(table_create_try001)
 
-        conn->execSql(conn, create_sql, table_sqlite_callback, table); check(table_create_try001)
+		TSQLite3Conn_ExecSQL(conn, create_sql, table_sqlite_callback, table); check(table_create_try001)
 
 	do_continue(table_create_try001)
 		if(create_sql)
@@ -476,7 +477,7 @@ TDBTable *TDBTable_Create   (TMemMgr *memmgr, IDBConn *conn, char *name, TDBFiel
  * 02-dez-2018, Danilo:
  *  Terminada.
  */
-TDBTable *TDBTable_Load(TMemMgr *memmgr, IDBConn *conn, char *name) {
+TDBTable *TDBTable_Load(TMemMgr *memmgr, TSQLite3Conn *conn, char *name) {
     return TDBTable_LoadWhere(memmgr, conn, name, NULL);
 }
 
@@ -490,7 +491,7 @@ TDBTable *TDBTable_Load(TMemMgr *memmgr, IDBConn *conn, char *name) {
  * 02-dez-2018, Danilo:
  *  Terminada.
  */
-TDBTable   *TDBTable_LoadWhere(TMemMgr *memmgr, IDBConn *conn, char *name, char *where) {
+TDBTable   *TDBTable_LoadWhere(TMemMgr *memmgr, TSQLite3Conn *conn, char *name, char *where) {
     TDBTable *table=NULL;
 
     try(table_loadwhere_try001)
@@ -619,7 +620,7 @@ TStatus      DBTable_WriteChanges(TDBTable *table) {
 				CONTINUE_LOOP_LIST
 			}
 
-			table->conn->execSql(table->conn, sql, NULL, NULL); check(dbtwc_001)
+			TSQLite3Conn_ExecSQL(table->conn, sql, NULL, NULL); check(dbtwc_001)
 
 			sql = TObject_Destroy(sql, NULL);
 		END_LOOPLIST

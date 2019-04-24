@@ -29,32 +29,32 @@ typedef char *TString;
 
 /**
  *
- * Throws: ExceptionTStringCreation
+ * Dispara: ExceptionTStringCreation
  * */
 TString TString_Create(TMemMgr *memmgr, char *cstr, TSize cstrSz);
 /**
  *
- * Throws: ExceptionTStringCopy
+ * Dispara: ExceptionTStringCopy
  * */
 TString TString_Copy(TString *dest, char *orig, TSize origSz);
 /**
  *
- * Throws: ExceptionTStringCopy
+ * Dispara: ExceptionTStringCopy
  * */
 TString TString_CopyF(TString *dest, char *format, ...);
 /**
  *
- * Throws: ExceptionTStringConcat
+ * Dispara: ExceptionTStringConcat
  * */
 TString TString_Concat(TString *dest, char *orig);
 /**
  *
- * Throws: ExceptionTStringConcat
+ * Dispara: ExceptionTStringConcat
  * */
 TString TString_ConcatF(TString *dest, char *format, ...);
 /**
  *
- * Throws: ExceptionTStringResize
+ * Dispara: ExceptionTStringResize
  * */
 TString TString_Resize(TString *dest, TSize newSize) ;
 
