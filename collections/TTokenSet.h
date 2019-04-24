@@ -39,12 +39,12 @@ struct TokenSet {
 
 /**
  *
- * Throws: ExceptionTTokenSetCreation
+ * Dispara: ExceptionTTokenSetCreation
  * */
 TTokenSet *TTokenSet_Create(TMemMgr *memmgr);
 /**
  *
- * Throws: ExceptionTTokenSetCreation
+ * Dispara: ExceptionTTokenSetCreation
  * */
 TTokenSet *TTokenSet_CreateFromString(TMemMgr *memmgr, char *source, char *seps);
 /**
@@ -52,7 +52,7 @@ TTokenSet *TTokenSet_CreateFromString(TMemMgr *memmgr, char *source, char *seps)
  * @return O token adicionado. Será, naturalmente, uma strng de endereço
  * diferente daquele do parâmetro 'token'
  *
- * Throws: ExceptionTTokenSetAddition
+ * Dispara: ExceptionTTokenSetAddition
  * */
 TString    TTokenSet_Add(TTokenSet *tokenset, char *token);
 
@@ -63,7 +63,7 @@ TLstNod   *TTokenSet_Get(TTokenSet *tokenset, char *token);
 void       TTokenSet_Del(TTokenSet *tokenset, TLstNod *node);
 /**
  *
- * Throws: ExceptionToString
+ * Dispara: ExceptionToString
  * */
 TString    TTokenSet_ToString(TTokenSet *tokenset, int charSep);
 

@@ -16,17 +16,17 @@
 
 /**
  *
- * Throws: ExceptionStringBuilder
+ * Dispara: ExceptionStringBuilder
  * */
 TString StringBuilder_FromString ( TMemMgr *memmgr, char* src, char *format, ... );
 /**
  *
- * Throws: ExceptionStringBuilder
+ * Dispara: ExceptionStringBuilder
  * */
 TString StringBuilder_FromFile ( TMemMgr *memmgr, TString *str, FILE *fp );
 /**
  *
- * Throws: ExceptionStringBuilder
+ * Dispara: ExceptionStringBuilder
  * */
 TString StringBuilder_FromFileSection ( TMemMgr *memmgr, TString *str, FILE *fp, int sep );
 

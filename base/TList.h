@@ -48,13 +48,13 @@ struct List {
 };
 /**
  *
- * Throws: ExceptionTListCreation
+ * Dispara: ExceptionTListCreation
  * */
 TList   *TList_Create(TMemMgr *memmgr);
 
 /**
  *
- * Throws: ExceptionTListAddition
+ * Dispara: ExceptionTListAddition
  * */
 TItem    TList_Add    (TList *list, void *item);
 

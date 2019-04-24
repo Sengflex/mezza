@@ -23,13 +23,13 @@
 /**
  *
  *
- * Throws: ExceptionConfLoad
+ * Dispara: ExceptionConfLoad
  */
 TStatus Conf_LoadFromFile(TMap *confsMap, char *filename);
 /**
  *
  *
- * Throws: ExceptionConfSave
+ * Dispara: ExceptionConfSave
  */
 TStatus Conf_SaveToFile(TMap *confsMap, char *filename);
 /**

@@ -16,7 +16,7 @@
 
 #include "../Type.h"
 #include "../str/TString.h"
-#include "../interfaces/dbase/IDBConn.h"
+#include "TSQLite3Conn.h"
 #include "TDBType.h"
 #include "../base/Exceptions.h"
 
@@ -57,16 +57,16 @@
  *
  * @return Um objeto TDBTable. NULL em caso de erro.
  *
- * Throws: ExceptionTableCreation
+ * Dispara: ExceptionTableCreation
  * */
-TDBTable *TDBTable_Create   (TMemMgr *memmgr, IDBConn *conn, char *name, TDBField *vfields, TCount vfieldsCount);
+TDBTable *TDBTable_Create   (TMemMgr *memmgr, TSQLite3Conn *conn, char *name, TDBField *vfields, TCount vfieldsCount);
 /**
  * Realiza a consulta no banco de dados e carrega os resultados na tabela
  *
  * @param table Tabela criada com DBTable_Create
  * @return OK para sucesso. FAIL para falha
  * */
-TDBTable *TDBTable_Load(TMemMgr *memmgr, IDBConn *conn, char *name);
+TDBTable *TDBTable_Load(TMemMgr *memmgr, TSQLite3Conn *conn, char *name);
 /**
  * Realiza a consulta no banco de dados e carrega os resultados na tabela
  *
@@ -74,14 +74,14 @@ TDBTable *TDBTable_Load(TMemMgr *memmgr, IDBConn *conn, char *name);
  * @param where Condição para o comando WHERE. Permite consulta seletiva
  * @return OK para sucesso. FAIL para falha
  * */
-TDBTable   *TDBTable_LoadWhere(TMemMgr *memmgr, IDBConn *conn, char *name, char *where);
+TDBTable   *TDBTable_LoadWhere(TMemMgr *memmgr, TSQLite3Conn *conn, char *name, char *where);
 /**
  * Adiciona um objeto registro/linha a uma tabela
  *
  * @param table Tabela criada com DBTable_Create
  * @param row Objeto registro/linha a ser adicionado
  *
- * Throws: ExceptionDBTableAddRow
+ * Dispara: ExceptionDBTableAddRow
  * */
 TStatus   DBTable_AddRow   (TDBTable *table, TDBRow *row);
 /**
@@ -93,7 +93,7 @@ TStatus   DBTable_AddRow   (TDBTable *table, TDBRow *row);
  *
  * @return OK em caso de sucesso. FAIL em caso de falha
  *
- * Throws: ExceptionDBTableNotFoundRow
+ * Dispara: ExceptionDBTableNotFoundRow
  * */
 TStatus   DBTable_DelRow   (TDBTable *table, TDBRow *row);
 /**
@@ -104,7 +104,7 @@ TStatus   DBTable_DelRow   (TDBTable *table, TDBRow *row);
  *
  * @return O objeto registro correspondente. NULL em caso de falha
  *
- * Throws: ExceptionDBTableNotFoundRow
+ * Dispara: ExceptionDBTableNotFoundRow
  * */
 TDBRow   *DBTable_GetRowById   (TDBTable *table, char *idAsStr);
 /**
@@ -125,9 +125,9 @@ TDBRow   *DBTable_GetRowByFinder   (TDBTable *table, FRowFinder finder, void *fi
  *
  * @return OK em caso de sucesso. FAIL em caso de falha
  *
- * Throws: ExceptionDBTableRowInsertion
- * Throws: ExceptionDBTableRowUpdate
- * Throws: ExceptionDBTableRowDelete
+ * Dispara: ExceptionDBTableRowInsertion
+ * Dispara: ExceptionDBTableRowUpdate
+ * Dispara: ExceptionDBTableRowDelete
  * */
 TStatus   DBTable_WriteChanges(TDBTable *table);
 

@@ -7,11 +7,10 @@
  */
 
 #include <mezza/dbase/TDBType.h>
-#include <mezza/dbase/IDBConn_sqlite3.h>
+#include <mezza/dbase/TSQLite3Conn.h>
 #include <mezza/dbase/TDBRow.h>
 #include <mezza/dbase/TDBTable.h>
 #include <mezza/dbase/TDBField.h>
-#include <mezza/interfaces/dbase/IDBConn.h>
 #include <mezza/FileUtil.h>
 #include <mezza/base/TObject.h>
 #include <mezza/base/TMemMgr.h>
@@ -72,7 +71,7 @@ static int finderName(TDBRow *row, void *data) {
 TEST_IMPL_TEST(_dbase_table) {
     TMemMgr  memmgr;
     char *filename = "mezza.dbase.002.db";
-    IDBConn *conn;
+    TSQLite3Conn *conn;
     char *tableName = "pessoas";
     TDBTable *table;
     TDBField fields[3] = {
@@ -94,10 +93,10 @@ TEST_IMPL_TEST(_dbase_table) {
     TDBRow *rowOfMozina=NULL, *rowOfMoraes=NULL;
 
     /* Realiza uma conexão no novo banco de dados */
-    conn = IDBConn_CreateSQLite3(TMemMgr_Init(&memmgr), filename);
+    conn = TSQLite3Conn_Create(TMemMgr_Init(&memmgr), filename);
     TEST_ASSERT(conn, "Criação de objeto conexão")
     PROTECT(conn, "\n\t TEST ERROR", "", remove(filename); return;)
-    status = conn->connect(conn, NULL, NULL);
+    status = TSQLite3Conn_Connect(conn);    
     TEST_ASSERT(status==OK, "Ativação da conexão")
     PROTECT(conn, "\n\t TEST ERROR", "",  TObject_Destroy(conn, NULL); remove(filename); return;)
 

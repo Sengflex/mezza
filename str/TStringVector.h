@@ -16,7 +16,7 @@ typedef TString *TStringVector;
 
 /**
  *
- * Throws: ExceptionTStringVectorCreation
+ * Dispara: ExceptionTStringVectorCreation
  * */
 TStringVector   TStringVector_Create(TMemMgr *memmgr, TString *orig,
                                         TCount nofPos);
