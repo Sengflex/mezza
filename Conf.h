@@ -6,7 +6,7 @@
 #include "str/TString.h"
 #include "base/Exceptions.h"
 #include "base/TList.h"
-#include "collections/TMap/TMap.h"
+#include "collections/TMap.h"
 
 #ifndef MZ_CONF_IMPLEMENT
     declare_exception(ExceptionConfLoad)

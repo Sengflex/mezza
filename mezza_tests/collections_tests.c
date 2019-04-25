@@ -7,8 +7,8 @@
 #include <mezza/SimpleTest.h>
 #include <mezza/base/TMemMgr.h>
 #include <mezza/base/TObject.h>
+#include <mezza/collections/TMap.h>
 #include <mezza/collections/TTokenSet.h>
-#include <mezza/collections/TMap/TMap.h>
 
 TEST_MODULE
 

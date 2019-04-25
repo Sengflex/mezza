@@ -1,9 +1,9 @@
 #ifndef MZ_COLLTMAP_TMAP_H
 #define MZ_COLLTMAP_TMAP_H
-#include "../../base/TMemMgr.h"
-#include "../../base/Exceptions.h"
-#include "../../base/TList.h"
-#include "../../str/TString.h"
+#include "../base/TMemMgr.h"
+#include "../base/Exceptions.h"
+#include "../base/TList.h"
+#include "../str/TString.h"
 
 #ifndef TMAP_IMPLEMENT
     declare_exception(ExceptionTMapCreation)

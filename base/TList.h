@@ -45,6 +45,7 @@ struct LstNod {
 struct List {
     TLstNod *start;
     TLstNod *end;
+    TSize    size;
 };
 /**
  *

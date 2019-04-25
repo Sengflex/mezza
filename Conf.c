@@ -10,8 +10,8 @@
 #include "base/TList.h"
 #include "str/StringBuilder.h"
 #include "str/TString.h"
+#include "collections/TMap.h"
 #include "collections/TTokenSet.h"
-#include "collections/TMap/TMap.h"
 
 TStatus Conf_LoadFromFile(TMap *confsMap, char *filename) {
 	FILE      *fileStream  = NULL;

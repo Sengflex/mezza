@@ -45,6 +45,7 @@ TList    *TList_Create(TMemMgr *memlist) {
         throw(ExceptionTListCreation, NULL)
 
     list->start = list->end = NULL;
+    list->size  = 0L;
     return list;
 }
 
@@ -63,6 +64,8 @@ TItem TList_Add(TList *list, void *item) {
     list->end       = lnode;
     if(!list->start)
         list->start = lnode;
+
+    list->size++;
 
     return item;
 }
@@ -99,6 +102,8 @@ TLstNod     *TList_Rem(TList *list, TLstNod *node) {
             list->end = node->prev;
         ret = node->next;
         TObject_Destroy(node, NULL);
+
+        list->size--;
     }
     return ret;
 }

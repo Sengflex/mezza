@@ -39,6 +39,7 @@ TEST_IMPL_TEST(_list_all) {
     TList_Add(list1, &item2);
     TList_Add(list1, &item3);
     TList_Add(list1, &item4);
+    TEST_ASSERT(list1->size==4, "Tamanho deveria ser 4")
     node1 = TList_Get(list1, &item4);
     TEST_ASSERT_FATAL(node1, "Falha de obtenção de nó")
     TEST_ASSERT(node1->item == &item4, "Falha de obtenção de nó. Item errado")
@@ -86,7 +87,7 @@ TEST_IMPL_TEST(_list_all) {
             return;)
     TEST_ASSERT(node1 = TList_Rem(list1, node1), "Falha de remoção. Em retornar próximo nó")
     TEST_ASSERT(node1->item == &item2, "Falha de remoção. Nó retornado não é próximo nó")
-
+    TEST_ASSERT(list1->size==2, "Tamanho agora deveria ser 2")
     TEST_ASSERT(list1->start == node1, "Falha de remoção. Ligação de nós corrompida")
 
     node1 = TList_Get(list1, &item4);

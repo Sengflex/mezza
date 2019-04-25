@@ -1,7 +1,7 @@
 #define TMAP_IMPLEMENT
 #include "TMap.h"
-#include "../../base/TMemMgr.h"
-#include "../../base/TObject.h"
+#include "../base/TMemMgr.h"
+#include "../base/TObject.h"
 #include <assert.h>
 
 static void tmapCleaner(TObject obj, void *treatValueAsTObject);
