@@ -11,8 +11,7 @@
 #include "str/StringBuilder.h"
 #include "str/TString.h"
 #include "collections/TTokenSet.h"
-#include "collections/TMap/strvd.h"
-#include "collections/TMapEntry/strvd.h"
+#include "collections/TMap/TMap.h"
 
 TStatus Conf_LoadFromFile(TMap *confsMap, char *filename) {
 	FILE      *fileStream  = NULL;
@@ -35,7 +34,7 @@ TStatus Conf_LoadFromFile(TMap *confsMap, char *filename) {
 		LOOPLIST(tokenSet->tokens,)
 			token = (TString)_NODE_->item;
 			StringBuilder_FromString(memmgr, token, "%=%", &key, &val); check_note(tcscff_001, "Extração de par")
-			TMap_SetEntry_Strvd(confsMap, key, val); check_note(tcscff_001, "Inserção de par")
+			TMap_SetEntry(confsMap, key, val); check_note(tcscff_001, "Inserção de par")
 			key = NULL;
 			val = NULL;
 		END_LOOPLIST
@@ -80,8 +79,8 @@ TStatus   Conf_SaveToFile(TMap *confsMap, char *filename) {
 	LOOPLIST(confsMap->entries, )
 		res = fprintf( fileStream,
 				 "%s=%s\n",
-				 ((TMapEntryStrVoid *)_NODE_->item)->key,
-				 (char*)((TMapEntryStrVoid *)_NODE_->item)->value);
+				 ((TMapEntry *)_NODE_->item)->key,
+				 (char*)((TMapEntry *)_NODE_->item)->value);
 		onerror(res > -1) {
 			fclose(fileStream);
 			remove(tempFilename);
@@ -101,15 +100,15 @@ TStatus   Conf_SaveToFile(TMap *confsMap, char *filename) {
 
 TStatus Conf_Set(TMap *confsMap, char *conf, char *value) {
 	TLstNod          *entryNode = NULL;
-	TMapEntryStrVoid *entry     = NULL;
+	TMapEntry *entry     = NULL;
 	TString           key       = NULL;
 	TString           value2    = NULL;
 
 	try(cnfst_001)
-		entryNode = TMap_GetEntryNode_Strvd(confsMap, conf);
+		entryNode = TMap_GetEntryNode(confsMap, conf);
 
 		if(entryNode) {
-			entry = (TMapEntryStrVoid *)entryNode->item;
+			entry = (TMapEntry *)entryNode->item;
 			TString_Copy(entry->value, value, 0); 
 				check_note(cnfst_001, "Copiando novo valor de configuração")
 		} else {
@@ -120,7 +119,7 @@ TStatus Conf_Set(TMap *confsMap, char *conf, char *value) {
 			value2 = TString_Create(TObject_ManagerOf(confsMap), value, 0);
 				check_note(cnfst_001, "Alocando memória para o valor")
 
-			TMap_SetEntry_Strvd(confsMap, key, value2);
+			TMap_SetEntry(confsMap, key, value2);
 				check_note(cnfst_001, "Adicinando novo par ao mapa")
 		}
 	catch_quickly(cnfst_001)
@@ -134,14 +133,14 @@ TStatus Conf_Set(TMap *confsMap, char *conf, char *value) {
 
 TString Conf_Get(TMap *confsMap, char *conf) {
 	TLstNod          *entryNode = NULL;
-	TMapEntryStrVoid *entry     = NULL;
+	TMapEntry *entry     = NULL;
 
-	entryNode = TMap_GetEntryNode_Strvd(confsMap, conf);
+	entryNode = TMap_GetEntryNode(confsMap, conf);
 
 	onerror(entryNode)
 		throw(ExceptionConfNotFound, NULL)
 
-	entry = (TMapEntryStrVoid *)entryNode->item;
+	entry = (TMapEntry *)entryNode->item;
 
 	return entry->value;
 }

@@ -4,6 +4,7 @@
         "conf.h": "c",
         "tmemmgr.h": "c",
         "strvd.h": "c",
-        "tobject.h": "c"
+        "tobject.h": "c",
+        "tstring.h": "c"
     }
 }

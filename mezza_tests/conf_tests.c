@@ -11,8 +11,6 @@
 #include <mezza/base/TObject.h>
 #include <mezza/Conf.h>
 #include <mezza/collections/TMap/TMap.h>
-#include <mezza/collections/TMap/strvd.h>
-#include <mezza/collections/TMapEntry/strvd.h>
 
 TEST_MODULE
 
@@ -30,7 +28,7 @@ TEST_IMPL_TEST(_conf_all) {
     TString key3;
     TString value3;
     TString retvalue1;
-    TMapEntryStrVoid *entry1;
+    TMapEntry *entry1;
     char *keys[3] = {"conf1", "conf2", "conf3"};
     char *values[3] = {"170", "author of", "date of"};
 
