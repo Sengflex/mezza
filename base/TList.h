@@ -65,6 +65,8 @@ TLstNod *TList_GetAt  (TList *list, TPosition pos);
 
 TLstNod *TList_Find   (TList *list, FListNodeCallback finder, void *extra);
 
+TBool    TList_CheckNode(TList *list, TLstNod *node);
+
 TLstNod *TList_Rem    (TList *list, TLstNod *node);
 
 TLstNod *TList_RemTObject    (TList *list, TLstNod *node);

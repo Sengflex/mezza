@@ -92,9 +92,21 @@ TLstNod *TList_Get(TList *list, void *item) {
     return cursor;
 }
 
+TBool TList_CheckNode(TList *list, TLstNod *node) {
+    TLstNod *cur;
+
+    LOOPLIST(list, )
+        if(_NODE_ == node)
+            return TRUE;
+    END_LOOPLIST
+
+    return FALSE;
+}
+
 TLstNod     *TList_Rem(TList *list, TLstNod *node) {
     TLstNod *ret = NULL;
-    if(node) {
+    
+    if(node && TList_CheckNode(list, node)) {
         if(list->start == node)
             list->start = node->next;
 
