@@ -73,10 +73,16 @@ TEST_IMPL_TEST(_tokenset_all) {
 
 TEST_IMPL_TEST(_mapentry_all) {
 	TMapEntry *entry1 = NULL;
+	TMapEntry *entry2 = NULL;
+	TMapEntry *entry3 = NULL;
 	TMemMgr memmgr;
 	TString key1;
+	TString key2;
+	TString key3;
 	int  value1=1560;
 	void *pvalue1 = &value1;
+	TString value2;
+	TString value3;
 	
 	key1 = TString_Create(TMemMgr_Init(&memmgr), "Exemplo 1 de chave", 0);
 	entry1 = TMapEntry_Create(&memmgr, key1, pvalue1);
@@ -84,6 +90,31 @@ TEST_IMPL_TEST(_mapentry_all) {
 	TEST_ASSERT(entry1->key==key1, "Falha de inicializacao.")
 	TEST_ASSERT(0==strcmp(entry1->key, key1), "Conteúdo da chave não corresponde ao fornecido.")
 	TEST_ASSERT(entry1->value == pvalue1, "Valor da chave está errado")
+
+	key2 = TString_Create(&memmgr, "Exemplo 2 de chave", 0);
+	TEST_CHECK_PREPARATION(key2)
+	value2 = TString_Create(&memmgr, "Exemplo 2 de valor", 0);
+	TEST_CHECK_PREPARATION(value2)
+	TEST_CHECK_PREPARATION(TRUE == TObject_Exists(&memmgr, value2))
+
+	entry2 = TMapEntry_CreateObj(&memmgr, key2, value2);
+	TEST_CHECK_PREPARATION(entry2)
+	TObject_Destroy(entry2, NULL);
+	TEST_ASSERT(FALSE == TObject_Exists(&memmgr, value2), "Valor 2 não deveria existir mais, pois é um TObject")
+
+
+	key3 = TString_Create(&memmgr, "Exemplo 3 de chave", 0);
+	TEST_CHECK_PREPARATION(key3)
+	value3 = TString_Create(&memmgr, "Exemplo 3 de valor", 0);
+	TEST_CHECK_PREPARATION(value3)
+	entry3 = TMapEntry_Create(&memmgr, key3, value3);
+	TEST_CHECK_PREPARATION(entry3)
+	TObject_Destroy(entry3, NULL);
+	TEST_ASSERT(TRUE == TObject_Exists(&memmgr, value3), "Valor 3 deveria existir ainda, embora seja um TObject")
+
+	TObject_Destroy(entry1, NULL);
+	TEST_ASSERT(FALSE == TObject_Exists(&memmgr, key1), "Chave 1 não deveria existir mais, pois é um TObject")
+
 }
 
 TEST_IMPL_TEST(_map_all) {
@@ -100,6 +131,9 @@ TEST_IMPL_TEST(_map_all) {
 	void *pvalue3=&value3;
 	void *ret1;
 	void *retValueForKey2;
+	TString key4;
+	TString key5;
+	TString value4;
 
 	map1 = TMap_Create(TMemMgr_Init(&memmgr));
 	TEST_ASSERT(map1, "Falha de criação")
@@ -125,6 +159,23 @@ TEST_IMPL_TEST(_map_all) {
 	TMap_UnsetEntry(map1, "key two");
 	retValueForKey2 = TMap_GetEntry(map1, "key two");
 	TEST_ASSERT(retValueForKey2==NULL, "Falha de retorno. Chave não deveria existir")
+	
+	TMap_UnsetEntry(map1, "key one");
+	TEST_ASSERT(FALSE == TObject_Exists(&memmgr, key1), "Key1 não deveria mais existir")
+
+	key4 = TString_Create(&memmgr, "key four", NULL);
+	TEST_CHECK_PREPARATION(key4)
+	value4 = TString_Create(&memmgr, "value four", NULL);
+	TEST_CHECK_PREPARATION(value4)
+	TMap_SetEntry(map1, key4, value4);
+	TMap_UnsetEntry(map1, key4);
+	TEST_ASSERT(TRUE == TObject_Exists(&memmgr, value4), "Value4 ainda deveria existir")
+
+	key5 = TString_Create(&memmgr, "key five", NULL);
+	TEST_CHECK_PREPARATION(key5)
+	TMap_SetEntryObj(map1, key5, value4);
+	TMap_UnsetEntry(map1, "key five");
+	TEST_ASSERT(FALSE == TObject_Exists(&memmgr, value4), "Value4 não deveria mais existir")
 }
 
 TEST_IMPL_TEST(collections_all) {

@@ -29,6 +29,7 @@ typedef struct Map {
 typedef struct MapEntry {
   TString key;
   void *value;
+  TBool valueIsObj;
 } TMapEntry;
 
 /**
@@ -49,17 +50,27 @@ typedef struct MapEntry {
  * sejam tratados como objetos e destruído assim como as chaves são 
  * por padrão
 */
-TMap    *TMap_Create(TMemMgr *memmgr);
+TMap      *TMap_Create(TMemMgr *memmgr);
 
-void    *TMap_SetEntry(TMap *map, TString key, void *value);
+#define    TMap_SetEntry(MAP, KEY, VALUE) \ 
+                TMap_SetEntry__Backend(MAP, KEY, VALUE, FALSE)
+#define    TMap_SetEntryObj(MAP, KEY, VALUE) \ 
+                TMap_SetEntry__Backend(MAP, KEY, VALUE, TRUE)
 
-void     TMap_UnsetEntry(TMap *map, TString key);
+void       TMap_UnsetEntry(TMap *map, char *key);
 
-void    *TMap_GetEntry(TMap *map, TString key);
+void      *TMap_GetEntry(TMap *map, char *key);
 
-TLstNod *TMap_GetEntryNode(TMap *map, TString key);
+TLstNod   *TMap_GetEntryNode(TMap *map, char *key);
 
-TMapEntry *TMapEntry_Create(TMemMgr *memmgr, TString key,
-                                            void *value);
+#define    TMapEntry_Create(MEMMGR, KEY, VAL) \
+                TMapEntry_Create__Backend(MEMMGR, KEY, VAL, FALSE)
+#define    TMapEntry_CreateObj(MEMMGR, KEY, VAL) \ 
+                TMapEntry_Create__Backend(MEMMGR, KEY, VAL, TRUE)
+
+TMapEntry *TMapEntry_Create__Backend(TMemMgr *memmgr, TString key,
+                                        void *value, TBool valueIsObj);
+void      *TMap_SetEntry__Backend(TMap *map, TString key, 
+                                        void *value, TBool valueIsObj);
 
 #endif /* MZ_COLLTMAP_TMAP_H */

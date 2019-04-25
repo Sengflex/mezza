@@ -65,7 +65,7 @@ TEST_IMPL_TEST(_conf_all) {
     TEST_ASSERT(retvalue1, "Retorno de erro")
     TEST_ASSERT(0==strcmp(retvalue1, values[2]), "Conteudo ");
 
-    TObject_Destroy(map1, TREAT_VALUE_AS_OBJECT);
+    TObject_Destroy(map1, NULL);
     remove(filename1);
     TMemMgr_FreeAll(&memmgr);
 }

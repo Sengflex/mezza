@@ -41,4 +41,6 @@ TStatus Conf_Set(TMap *confsMap, char *conf, char *value);
 
 TString Conf_Get(TMap *confsMap, char *conf);
 
+#define Conf_Unset(CNFMAP, KEY) TMap_UnsetEntry(CNFMAP, KEY)
+
 #endif /* MZ_CONF_H */

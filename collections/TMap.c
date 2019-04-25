@@ -4,9 +4,7 @@
 #include "../base/TObject.h"
 #include <assert.h>
 
-static void tmapCleaner(TObject obj, void *treatValueAsTObject);
-
-void *TREAT_VALUE_AS_OBJECT = (void *)0x1;
+static void tmapCleaner(TObject obj, void *userdata);
 
 TMap *TMap_Create(TMemMgr *memmgr) {
 	TMap *map = NULL;
@@ -29,7 +27,7 @@ TMap *TMap_Create(TMemMgr *memmgr) {
 	
 	return map;
 }
-void *TMap_SetEntry(TMap *map, TString key, void *value) {
+void *TMap_SetEntry__Backend(TMap *map, TString key, void *value, TBool valueIsObj) {
 	TLstNod *nodeKey;
 	TMapEntry *entry;
 
@@ -42,7 +40,7 @@ void *TMap_SetEntry(TMap *map, TString key, void *value) {
 	if (nodeKey) {
 		entry = (TMapEntry *)nodeKey->item;
 	} else {
-		entry = TMapEntry_Create(TObject_ManagerOf(map), key, value);
+		entry = TMapEntry_Create__Backend(TObject_ManagerOf(map), key, value, valueIsObj);
 		onerror(entry) {
 			throw_note(ExceptionTMapSetEntry, NULL, "Criacao de objeto de entrada")
 		}
@@ -56,7 +54,7 @@ void *TMap_SetEntry(TMap *map, TString key, void *value) {
 	map->entriesSize++;
 	return value;
 }
-void TMap_UnsetEntry(TMap *map, TString key) {
+void TMap_UnsetEntry(TMap *map, char *key) {
   TLstNod *nodeKey;
 
 	#ifdef DEBUG
@@ -71,7 +69,7 @@ void TMap_UnsetEntry(TMap *map, TString key) {
   }
   map->entriesSize--;
 }
-TLstNod *TMap_GetEntryNode(TMap *map, TString key) {
+TLstNod *TMap_GetEntryNode(TMap *map, char *key) {
 	#ifdef DEBUG
 		assert(map);
 		assert(key);
@@ -84,7 +82,7 @@ TLstNod *TMap_GetEntryNode(TMap *map, TString key) {
 	
 	return NULL;
 }
-void *TMap_GetEntry(TMap *map, TString key) {
+void *TMap_GetEntry(TMap *map, char *key) {
   TLstNod *nodeKey;
 
 	#ifdef DEBUG
@@ -98,26 +96,25 @@ void *TMap_GetEntry(TMap *map, TString key) {
 		
   return NULL;
 }
-static void tmapCleaner(TObject obj, void *treatValueAsTObject) {
+static void tmapCleaner(TObject obj, void *userdata) {
 	TMap *map = (TMap *)obj;
 	if(map->entries) {
 		if(map->entries->start) 
-			TList_ForeachDoDestroy(map->entries, treatValueAsTObject);
+			TList_ForeachDoDestroy(map->entries, userdata);
 		TObject_Destroy(map->entries, NULL);
 	}	
 }
 
-static void TMapEntry_dtor(TObject obj, void *treatValueAsTObject) {
+static void TMapEntry_dtor(TObject obj, void *userdata) {
   TMapEntry *entry = obj;
 
   if (entry->key)
-    TObject_Destroy(entry->key, NULL);
-	if((long)treatValueAsTObject) {
-		TObject_Destroy(entry->value, NULL);
+    TObject_Destroy(entry->key, userdata);
+	if(entry->valueIsObj == TRUE) {
+		TObject_Destroy(entry->value, userdata);
 	}
 }
-
-TMapEntry *TMapEntry_Create(TMemMgr *memmgr, TString key, void *value) {
+TMapEntry *TMapEntry_Create__Backend(TMemMgr *memmgr, TString key, void *value, TBool valueIsObj) {
     TMapEntry *ret;
 
     #ifdef DEBUG
@@ -131,6 +128,7 @@ TMapEntry *TMapEntry_Create(TMemMgr *memmgr, TString key, void *value) {
         
     ret->key = key;
     ret->value = value;
+		ret->valueIsObj = valueIsObj;
     
     return ret;
 }

@@ -34,7 +34,7 @@ TStatus Conf_LoadFromFile(TMap *confsMap, char *filename) {
 		LOOPLIST(tokenSet->tokens,)
 			token = (TString)_NODE_->item;
 			StringBuilder_FromString(memmgr, token, "%=%", &key, &val); check_note(tcscff_001, "Extração de par")
-			TMap_SetEntry(confsMap, key, val); check_note(tcscff_001, "Inserção de par")
+			TMap_SetEntryObj(confsMap, key, val); check_note(tcscff_001, "Inserção de par")
 			key = NULL;
 			val = NULL;
 		END_LOOPLIST
@@ -119,7 +119,7 @@ TStatus Conf_Set(TMap *confsMap, char *conf, char *value) {
 			value2 = TString_Create(TObject_ManagerOf(confsMap), value, 0);
 				check_note(cnfst_001, "Alocando memória para o valor")
 
-			TMap_SetEntry(confsMap, key, value2);
+			TMap_SetEntryObj(confsMap, key, value2);
 				check_note(cnfst_001, "Adicinando novo par ao mapa")
 		}
 	catch_quickly(cnfst_001)
@@ -133,14 +133,11 @@ TStatus Conf_Set(TMap *confsMap, char *conf, char *value) {
 
 TString Conf_Get(TMap *confsMap, char *conf) {
 	TLstNod          *entryNode = NULL;
-	TMapEntry *entry     = NULL;
 
 	entryNode = TMap_GetEntryNode(confsMap, conf);
 
 	onerror(entryNode)
 		throw(ExceptionConfNotFound, NULL)
 
-	entry = (TMapEntry *)entryNode->item;
-
-	return entry->value;
+	return ((TMapEntry *)entryNode->item)->value;
 }
