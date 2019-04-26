@@ -67,14 +67,14 @@ TEST_IMPL_TEST(_list_all) {
     TEST_ASSERT_FATAL(0 == TList_Foreach(list1, nodecbk1, &sum1), "Falha de retorno")
     TEST_ASSERT(sum1 == 1000, "Falha de foreach")
 
-    TEST_ASSERT(4 == TList_CountNodes(list1), "Falha de contagem")
+    TEST_ASSERT(4 == list1->size, "Falha de contagem")
 
     node1 = TList_Get(list1, &item3);
     PROTECT(node1,
             "mezza_tests.list_tests._list_all",
             "Obtenção de objeto do qual dependem os testes a seguir",
             return;)
-    TEST_ASSERT(node1 = TList_Rem(list1, node1), "Falha de remoção. Em retornar próximo nó")
+    TEST_ASSERT_FATAL(node1 = TList_Rem(list1, node1), "Falha de remoção. Em retornar próximo nó")
     TEST_ASSERT(node1->item == &item4, "Falha de remoção. Nó retornado não é próximo nó")
     TEST_ASSERT(NULL == TList_Get(list1, &item3), "Falha de remoção. Item nao deveria mais ser encontrado")
 

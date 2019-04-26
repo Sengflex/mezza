@@ -15,31 +15,26 @@
 
 #include <stdio.h>
 
-static void fAcmCleanerList(TObject addr, void *ignore) {
-    TList *list = (TList *)addr;
-    TLstNod *cursor = list->start;
+static void TList_dtor(TObject obj, void *userdata) {
+    TLstNod *cursor = ((TList *)obj)->start;
     TLstNod *nodeToClean;
 
     while(cursor) {
         nodeToClean = cursor;
         cursor = cursor->next;
-        TObject_Destroy(nodeToClean, (void *)TRUE);
+        TObject_Destroy(nodeToClean, userdata);
     }
 }
 
-static void fAcmCleanerListNode(TObject addr, void *shouldIgnoreCleaning) {
-    if(!shouldIgnoreCleaning) {
-        TLstNod *lnode = (TLstNod *)addr;
+static void TListNode_dtor(TObject addr, void *userdata) {
+    TLstNod *lnode = (TLstNod *)addr;
 
-        if(lnode->prev)
-            lnode->prev->next = lnode->next;
-        if(lnode->next)
-            lnode->next->prev = lnode->prev;
-    }
+    if(lnode->itemIsObj == TRUE)
+        TObject_Destroy(lnode->item, userdata);
 }
 
 TList    *TList_Create(TMemMgr *memlist) {
-    TList *list = TObject_Create(memlist, sizeof(TList), fAcmCleanerList);
+    TList *list = TObject_Create(memlist, sizeof(TList), TList_dtor);
 
     onerror(list)
         throw(ExceptionTListCreation, NULL)
@@ -49,8 +44,8 @@ TList    *TList_Create(TMemMgr *memlist) {
     return list;
 }
 
-TItem TList_Add(TList *list, void *item) {
-    TLstNod *lnode = TObject_Create(TObject_ManagerOf(list), sizeof(TLstNod), fAcmCleanerListNode);
+TItem    TList_Add__Backend    (TList *list, void *item, TBool itemIsObj) {
+    TLstNod *lnode = TObject_Create(TObject_ManagerOf(list), sizeof(TLstNod), TListNode_dtor);
 
     onerror(lnode)
         throw_note(ExceptionTListAddition, NULL, "Alocação de nó para a lista")
@@ -58,6 +53,7 @@ TItem TList_Add(TList *list, void *item) {
     lnode->next     = NULL;
     lnode->prev     = list->end;
     lnode->item     = item;
+    lnode->itemIsObj = itemIsObj;
     if(list->end)
         list->end->next = lnode;
 
@@ -103,26 +99,30 @@ TBool TList_CheckNode(TList *list, TLstNod *node) {
     return FALSE;
 }
 
-TLstNod     *TList_Rem(TList *list, TLstNod *node) {
-    TLstNod *ret = NULL;
-    
-    if(node && TList_CheckNode(list, node)) {
+TStatus      TList_Unlink(TList *list, TLstNod *node) {
+    if(TList_CheckNode(list, node)) {
+        if(node->prev)
+            node->prev->next = node->next;
+        if(node->next)
+            node->next->prev = node->prev;
         if(list->start == node)
             list->start = node->next;
-
         if(list->end == node)
             list->end = node->prev;
-        ret = node->next;
-        TObject_Destroy(node, NULL);
-
         list->size--;
+        return OK;
     }
-    return ret;
+    return FAIL;
 }
 
-TLstNod *TList_RemTObject    (TList *list, TLstNod *node) {
-	TObject_Destroy(node->item, NULL);
-	return TList_Rem(list, node);
+TLstNod     *TList_Rem__Backend(TList *list, TLstNod *node, void *userdata) {
+    TLstNod *ret = NULL;
+
+    if(node && (TList_Unlink(list, node) == OK)) {
+        ret = node->next;
+        TObject_Destroy(node, userdata);
+    }
+    return ret;
 }
 
 int        TList_Foreach(TList *list, FListNodeCallback cback, void *extra) {
@@ -136,11 +136,11 @@ int        TList_Foreach(TList *list, FListNodeCallback cback, void *extra) {
     return ret;
 }
 
-void TList_ForeachDoDestroy(TList *list, void *extra) {
+void TList_ForeachDoDestroy(TList *list, void *userdata) {
     TLstNod *cursor = list->start;
 
     while(cursor) {
-    	cursor->item = TObject_Destroy(cursor->item, extra);
+    	cursor->item = TObject_Destroy(cursor->item, userdata);
         cursor = cursor->next;
     }
 }
@@ -165,13 +165,5 @@ TLstNod* TList_GetAt(TList* list, TPosition pos) {
         counter++;
     }
     return cursor;
-}
-
-TSize    TList_CountNodes(TList *list) {
-    TSize ret = 0;
-
-    LOOPLIST(list, ret++;) END_LOOPLIST
-
-    return ret;
 }
 

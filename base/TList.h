@@ -38,6 +38,7 @@ typedef int (*FListNodeCallback)(TLstNod *, void *);
 
 struct LstNod {
     void    *item;
+    TBool    itemIsObj;
     TLstNod *prev;
     TLstNod *next;
 };
@@ -53,11 +54,14 @@ struct List {
  * */
 TList   *TList_Create(TMemMgr *memmgr);
 
+
+#define TList_Add(LIST, ITEM) TList_Add__Backend(LIST, ITEM, FALSE)
+#define TList_AddObj(LIST, ITEM) TList_Add__Backend(LIST, ITEM, TRUE)
 /**
  *
  * Dispara: ExceptionTListAddition
  * */
-TItem    TList_Add    (TList *list, void *item);
+TItem    TList_Add__Backend    (TList *list, void *item, TBool itemIsObj);
 
 TLstNod *TList_Get    (TList *list, void *item);
 
@@ -67,17 +71,18 @@ TLstNod *TList_Find   (TList *list, FListNodeCallback finder, void *extra);
 
 TBool    TList_CheckNode(TList *list, TLstNod *node);
 
-TLstNod *TList_Rem    (TList *list, TLstNod *node);
+#define  TList_Rem(LIST, NODE) TList_Rem__Backend(LIST, NODE, NULL)
+#define  TList_RemWithUserData(LIST, NODE, USERDATA) TList_Rem__Backend(LIST, NODE, USERDATA)
 
-TLstNod *TList_RemTObject    (TList *list, TLstNod *node);
+TLstNod *TList_Rem__Backend(TList *list, TLstNod *node, void *userdata);
+
+TStatus  TList_Unlink(TList *list, TLstNod *node);
 
 int      TList_Foreach(TList *list, FListNodeCallback cback, void *extra);
 
-void     TList_ForeachDoDestroy(TList *list, void *extra);
+void     TList_ForeachDoDestroy(TList *list, void *userdata);
 
 void     TList_ForeachDoDestroyByPassDtor(TList *list);
-
-TSize    TList_CountNodes(TList *list);
 
 #define LOOPLIST(LIST, ACTION) { \
         TLstNod *_NODE_ = (LIST)->start; \

@@ -51,7 +51,7 @@ TEST_IMPL_TEST(_conf_all) {
 
     ret = Conf_LoadFromFile(map2, filename1);
     TEST_ASSERT(ret==OK, "Retorno de erro")
-    TEST_ASSERT(TList_CountNodes(map2->entries)==3, "Número de entradas inválido")
+    TEST_ASSERT(map2->entries->size==3, "Número de entradas inválido")
 
     retvalue1 = Conf_Get(map2, keys[0]);
     TEST_ASSERT(retvalue1, "Retorno de erro")

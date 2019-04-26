@@ -79,7 +79,7 @@ TString    TTokenSet_Add(TTokenSet *tokenset, char *token) {
 	return ret;
 }
 TString    TTokenSet_AddPreCreated(TTokenSet *tokenset, TString token) {
-	onerror(TList_Add(tokenset->tokens, token))
+	onerror(TList_AddObj(tokenset->tokens, token))
 		throw_note(ExceptionTTokenSetAddition, NULL, "Adicao 'a lista")
 
 	tokenset->nofTokens++;
@@ -120,15 +120,13 @@ TLstNod   *TTokenSet_Get(TTokenSet *tokenset, char *token) {
 }
 
 void       TTokenSet_Del(TTokenSet *tokenset, TLstNod *node) {
-	TList_RemTObject(tokenset->tokens, node);
+	TList_Rem(tokenset->tokens, node);
 }
 
 static void tokenSetCleaner(TObject obj, void *extra) {
 	TTokenSet *ret = (TTokenSet *)obj;
 
 	if(ret->tokens) {
-		if(ret->tokens->start)
-			TList_ForeachDoDestroy(ret->tokens, NULL);
 		TObject_Destroy(ret->tokens, NULL);
 	}
 }

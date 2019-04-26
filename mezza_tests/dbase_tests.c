@@ -139,9 +139,9 @@ TEST_IMPL_TEST(_dbase_table) {
     TEST_ASSERT_FATAL(table->name, "Campo conn deveria ser diferente de NULL")
     TEST_ASSERT(0==strcmp(table->name, tableName), "Campo name com valor errado")
     TEST_ASSERT_FATAL(table->rows, "Campo rows deveria ser diferente de NULL")
-    TEST_ASSERT(TList_CountNodes(table->rows)==5, "Campo rows deveria conter 5 itens")
+    TEST_ASSERT(table->rows->size==5, "Campo rows deveria conter 5 itens")
     TEST_ASSERT_FATAL(table->fields, "Campo rows deveria ser diferente de NULL")
-    TEST_ASSERT(TList_CountNodes(table->fields)==fieldsCount, "Campo fields deveria ser uma lista com fieldsCount elementos")
+    TEST_ASSERT(table->fields->size==fieldsCount, "Campo fields deveria ser uma lista com fieldsCount elementos")
 
     /* Adiciona dados */
     register1[0] = TDBRow_Create(&memmgr, registerContent1, fieldsCount);

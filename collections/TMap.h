@@ -57,7 +57,10 @@ TMap      *TMap_Create(TMemMgr *memmgr);
 #define    TMap_SetEntryObj(MAP, KEY, VALUE) \ 
                 TMap_SetEntry__Backend(MAP, KEY, VALUE, TRUE)
 
-void       TMap_UnsetEntry(TMap *map, char *key);
+#define    TMap_UnsetEntry(MAP, KEY) TMap_UnsetEntry__Backend(MAP, KEY, NULL)
+#define    TMap_UnsetEntryWithUserData(MAP, KEY, USERDATA) TMap_UnsetEntry__Backend(MAP, KEY, USERDATA)
+
+void       TMap_UnsetEntry__Backend(TMap *map, char *key, void *userdata);
 
 void      *TMap_GetEntry(TMap *map, char *key);
 

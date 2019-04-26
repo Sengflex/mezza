@@ -44,7 +44,7 @@ void *TMap_SetEntry__Backend(TMap *map, TString key, void *value, TBool valueIsO
 		onerror(entry) {
 			throw_note(ExceptionTMapSetEntry, NULL, "Criacao de objeto de entrada")
 		}
-		onerror(TList_Add(map->entries, entry)) {
+		onerror(TList_AddObj(map->entries, entry)) {
 			TObject_Destroy(entry, NULL);
 			throw_note(ExceptionTMapSetEntry, NULL, "Adicao de entrada à lista")
 		}
@@ -54,7 +54,8 @@ void *TMap_SetEntry__Backend(TMap *map, TString key, void *value, TBool valueIsO
 	map->entriesSize++;
 	return value;
 }
-void TMap_UnsetEntry(TMap *map, char *key) {
+
+void TMap_UnsetEntry__Backend(TMap *map, char *key, void *userdata) {
   TLstNod *nodeKey;
 
 	#ifdef DEBUG
@@ -64,11 +65,12 @@ void TMap_UnsetEntry(TMap *map, char *key) {
 
   nodeKey = TMap_GetEntryNode(map, key);
   if (nodeKey) {
-    TObject_Destroy(nodeKey->item, NULL);
-    TList_Rem(map->entries, nodeKey);
-  }
-  map->entriesSize--;
+    TList_Rem__Backend(map->entries, nodeKey, userdata);
+		
+  	map->entriesSize--;
+	}
 }
+
 TLstNod *TMap_GetEntryNode(TMap *map, char *key) {
 	#ifdef DEBUG
 		assert(map);

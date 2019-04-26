@@ -303,7 +303,7 @@ static TStatus load_table_scheme(TDBTable *table) {
 		 }
 		 TObject_Destroy(fieldsScheme, NULL);
 
-		 table->fieldsCount = TList_CountNodes(tmpFieldList);
+		 table->fieldsCount = tmpFieldList->size;
 		 table->fields = tmpFieldList;
 	catch(load_table_scheme_try001)
 		on(Exception)

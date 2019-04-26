@@ -156,9 +156,8 @@ TStatus      TDBRow_Set(TMemMgr *memmgr, TDBRow *row, TCount nofParams, ...) {
         if(row->parentTable->fieldsCount < nofIterations)
             nofIterations = row->parentTable->fieldsCount;
     } else {
-        TSize cellsCount = TList_CountNodes(row->cells);
-        if(cellsCount < nofIterations)
-            nofIterations = cellsCount;
+        if(row->cells->size < nofIterations)
+            nofIterations = row->cells->size;
     }
 
     /* Aloca vetor temporario de strings */

@@ -178,9 +178,34 @@ TEST_IMPL_TEST(_map_all) {
 	TEST_ASSERT(FALSE == TObject_Exists(&memmgr, value4), "Value4 não deveria mais existir")
 }
 
+void dtor1(TObject obj, void *extra) {
+	int *count = (int*)extra;
+
+	(*count)++;
+}
+
+TEST_IMPL_TEST(_map_val_as_obj) {
+	TMemMgr memmgr;
+	TString val1, key1;
+	TMap *map1;
+	int dcount = 0;
+
+	val1 = TString_Create(TMemMgr_Init(&memmgr), "str 1", 0);
+	TEST_CHECK_PREPARATION(val1)
+	TObject_SetDtor(val1, dtor1);
+	map1 = TMap_Create(&memmgr);
+	TEST_CHECK_PREPARATION(map1)
+	key1 = TString_Create(&memmgr, "unico", 0);
+	TEST_CHECK_PREPARATION(key1)
+	TEST_CHECK_PREPARATION(TMap_SetEntryObj(map1, key1, val1))
+	TMap_UnsetEntryWithUserData(map1, key1, &dcount);
+	TEST_ASSERT(dcount == 1, "dcount deveria ser igual a 1")
+}
+
 TEST_IMPL_TEST(collections_all) {
     TEST_CALL_TEST(_tokenset_all)
     TEST_CALL_TEST(_mapentry_all)
     TEST_CALL_TEST(_map_all)
+    TEST_CALL_TEST(_map_val_as_obj)
 }
 
