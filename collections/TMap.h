@@ -52,9 +52,9 @@ typedef struct MapEntry {
 */
 TMap      *TMap_Create(TMemMgr *memmgr);
 
-#define    TMap_SetEntry(MAP, KEY, VALUE) \ 
+#define    TMap_SetEntry(MAP, KEY, VALUE) \
                 TMap_SetEntry__Backend(MAP, KEY, VALUE, FALSE)
-#define    TMap_SetEntryObj(MAP, KEY, VALUE) \ 
+#define    TMap_SetEntryObj(MAP, KEY, VALUE) \
                 TMap_SetEntry__Backend(MAP, KEY, VALUE, TRUE)
 
 #define    TMap_UnsetEntry(MAP, KEY) TMap_UnsetEntry__Backend(MAP, KEY, NULL)
@@ -68,7 +68,7 @@ TLstNod   *TMap_GetEntryNode(TMap *map, char *key);
 
 #define    TMapEntry_Create(MEMMGR, KEY, VAL) \
                 TMapEntry_Create__Backend(MEMMGR, KEY, VAL, FALSE)
-#define    TMapEntry_CreateObj(MEMMGR, KEY, VAL) \ 
+#define    TMapEntry_CreateObj(MEMMGR, KEY, VAL) \
                 TMapEntry_Create__Backend(MEMMGR, KEY, VAL, TRUE)
 
 TMapEntry *TMapEntry_Create__Backend(TMemMgr *memmgr, TString key,

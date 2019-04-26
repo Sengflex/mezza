@@ -61,7 +61,7 @@ TList   *TList_Create(TMemMgr *memmgr);
  *
  * Dispara: ExceptionTListAddition
  * */
-TItem    TList_Add__Backend    (TList *list, void *item, TBool itemIsObj);
+void    *TList_Add__Backend    (TList *list, void *item, TBool itemIsObj);
 
 TLstNod *TList_Get    (TList *list, void *item);
 

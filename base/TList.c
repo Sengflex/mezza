@@ -44,7 +44,7 @@ TList    *TList_Create(TMemMgr *memlist) {
     return list;
 }
 
-TItem    TList_Add__Backend    (TList *list, void *item, TBool itemIsObj) {
+void    *TList_Add__Backend    (TList *list, void *item, TBool itemIsObj) {
     TLstNod *lnode = TObject_Create(TObject_ManagerOf(list), sizeof(TLstNod), TListNode_dtor);
 
     onerror(lnode)

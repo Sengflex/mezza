@@ -19,7 +19,7 @@ TStatus Conf_LoadFromFile(TMap *confsMap, char *filename) {
 			   token       = NULL,
 			   key         = NULL,
 			   val         = NULL;
-	TTokenSet *tokenSet    = NULL;
+	TList     *tokenSet    = NULL;
 	TMemMgr   *memmgr = TObject_ManagerOf(confsMap);
 
 	try_continue(tcscff_001)
@@ -29,9 +29,9 @@ TStatus Conf_LoadFromFile(TMap *confsMap, char *filename) {
 
 		StringBuilder_FromFile(memmgr, &fileContent, fileStream); check_note(tcscff_001, "Leitura do arquivo")
 
-		tokenSet = TTokenSet_CreateFromString(memmgr, fileContent, "\n"); check_note(tcscff_001, "Tokenização")
+		tokenSet = TokenSet_CreateFromString(memmgr, fileContent, "\n"); check_note(tcscff_001, "Tokenização")
 
-		LOOPLIST(tokenSet->tokens,)
+		LOOPLIST(tokenSet,)
 			token = (TString)_NODE_->item;
 			StringBuilder_FromString(memmgr, token, "%=%", &key, &val); check_note(tcscff_001, "Extração de par")
 			TMap_SetEntryObj(confsMap, key, val); check_note(tcscff_001, "Inserção de par")

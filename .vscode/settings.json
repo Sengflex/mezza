@@ -6,6 +6,7 @@
         "strvd.h": "c",
         "tobject.h": "c",
         "tstring.h": "c",
-        "tmap.h": "c"
+        "tmap.h": "c",
+        "ttokenset.h": "c"
     }
 }
