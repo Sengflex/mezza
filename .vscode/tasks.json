@@ -20,18 +20,23 @@
             "type": "shell",
             "command": "make",
             "args": [
-                "CFLAGS='-Wall -I../sqlite3'"
+                "release"
             ],
             "group": {
                 "kind": "build",
                 "isDefault": true
-            }
+            },
+            "problemMatcher": [
+                "$gcc"
+            ]
         },
         {
             "label": "Static Library - Clean",
             "type": "shell",
             "command": "make",
-            "args": ["clean"],
+            "args": [
+                "clean"
+            ],
             "group": {
                 "kind": "build",
                 "isDefault": true

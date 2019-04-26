@@ -7,7 +7,7 @@ NAME := mezza
 VERSION := 0.2.0
 
 OUTDIR := build
-SRCDIRS  := base collections collections/TMap collections/TMapEntry dbase interfaces/dbase  str
+SRCDIRS  := base collections dbase  str
 SRCs   :=  $(wildcard *.c) $(foreach dir,$(SRCDIRS),$(wildcard $(dir)/*.c))
 OBJs   := $(patsubst %.c,$(OUTDIR)/%.o,$(SRCs))
 OUTDIR.subdirs := $(addprefix $(OUTDIR)/,$(SRCDIRS))
@@ -26,7 +26,7 @@ $(TGT): $(OUTDIR) $(OUTDIR.subdirs) $(OBJs)
 	ar -cr $(TGT) $(OBJs)
 
 release: clean
-	make CFLAGS="-Wall -I../sqlite3" pack
+	make CFLAGS="-Wall -I../sqlite3 -Wall -Wno-unused-variable -Wno-unused-but-set-variable" pack
 
 $(OUTDIR)/%.o: %.c
 	gcc $(CFLAGS) -c -o $@ $<
@@ -57,8 +57,6 @@ collections-TMapEntry-strvd.c:
 clean:
 	rm -fR $(OUTDIR)
 
-install:
-	./install.sh $(PREFIX)
 
 $(OUTDIR.subdirs) $(OUTDIR):
 	mkdir -p $@
@@ -83,6 +81,15 @@ pack: $(TGT) $(DESTHEADERS.subdirs) $(TGT.intalldir)
 
 $(PACKDIR)/include/$(NAME)/%.h: %.h
 	cp $< $@
+
+install: pack
+	cp $(TGT) $(PREFIX)/lib/
+	cp -R $(PACKDIR)/include/$(NAME) $(PREFIX)/include/$(NAME)
+
+uninstall:
+	rm -f $(PREFIX)/lib/lib$(NAME).a
+	rm -fR $(PREFIX)/include/$(NAME)
+
 
 $(DESTHEADERS.subdirs) $(TGT.intalldir):
 	mkdir -p $@
