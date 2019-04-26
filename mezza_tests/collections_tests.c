@@ -7,8 +7,8 @@
 #include "../SimpleTest.h"
 #include "../base/TMemMgr.h"
 #include "../base/TObject.h"
-#include "../collections/TMap.h"
-#include "../collections/TTokenSet.h"
+#include "../collections/Map.h"
+#include "../collections/TokenSet.h"
 
 #define    TMapEntry_Create(MEMMGR, KEY, VAL) \
                 TMapEntry_Create__Backend(MEMMGR, KEY, VAL, FALSE)
@@ -29,7 +29,7 @@ TEST_IMPL_TEST(_tokenset_all) {
 	TString res;
 	TString tostring1;
 	TStatus statret;
-	TLstNod *gottoken1 = NULL, *gottoken2 = NULL, *gottoken3 = NULL;
+	TNode *gottoken1 = NULL, *gottoken2 = NULL, *gottoken3 = NULL;
 	char *source1 = "bola|da|vez|do|manuel";
 	char *sep1 = "|";
 	char *vector1[5] = {"bola", "da", "vez", "do", "manuel"};

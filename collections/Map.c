@@ -1,5 +1,5 @@
 #define TMAP_IMPLEMENT
-#include "TMap.h"
+#include "Map.h"
 #include "../base/TMemMgr.h"
 #include "../base/TObject.h"
 #include <assert.h>
@@ -31,7 +31,7 @@ TMapEntry *TMapEntry_Create__Backend(TMemMgr *memmgr, TString key, void *value, 
 }
 
 void *Map_SetEntry__Backend(TList *map, TString key, void *value, TBool valueIsObj, void *userdata) {
-	TLstNod *nodeKey;
+	TNode *nodeKey;
 	TMapEntry *entry;
 
 	#ifdef DEBUG
@@ -61,7 +61,7 @@ void *Map_SetEntry__Backend(TList *map, TString key, void *value, TBool valueIsO
 }
 
 void Map_UnsetEntry__Backend(TList *map, char *key, void *userdata) {
-  TLstNod *nodeKey;
+  TNode *nodeKey;
 
 	#ifdef DEBUG
 		assert(map);
@@ -73,14 +73,14 @@ void Map_UnsetEntry__Backend(TList *map, char *key, void *userdata) {
     TList_Rem__Backend(map, nodeKey, userdata);
 }
 
-int map_tlistcallback(TLstNod *node, void *key) {
+int map_tlistcallback(TNode *node, void *key) {
 	if (0 == strcmp(((TMapEntry *)node->item)->key, key)) 
 			return 1;
 	return 0;
 }
 
 void *Map_GetEntry(TList *map, char *key) {
-  TLstNod *nodeKey;
+  TNode *nodeKey;
 
 	#ifdef DEBUG
 		assert(map);

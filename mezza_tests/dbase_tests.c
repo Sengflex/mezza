@@ -60,7 +60,7 @@ TEST_IMPL_TEST(_dbase_row) {
 }
 
 static int finderName(TDBRow *row, void *data) {
-	TLstNod *node = row->cells->start->next;
+	TNode *node = row->cells->start->next;
 
 	if(strstr((char *)node->item, (char*)data))
 		return 1;
@@ -89,7 +89,7 @@ TEST_IMPL_TEST(_dbase_table) {
     TDBRow *register1[5] = { NULL,NULL,NULL,NULL,NULL };
     int i=0, j=0;
     TDBRow *registroObtido;
-    TLstNod *cellObtida, *cellOrigem;
+    TNode *cellObtida, *cellOrigem;
     TDBRow *rowOfMozina=NULL, *rowOfMoraes=NULL;
 
     /* Realiza uma conexão no novo banco de dados */

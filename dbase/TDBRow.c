@@ -102,7 +102,7 @@ TStatus      TDBRow_Get(TMemMgr *memmgr, TDBRow *row, TCount nofParams, ...) {
     va_list ap;
     TCount nofIterations = nofParams;
     TString *cell;
-    TLstNod *node = row->cells->start;
+    TNode *node = row->cells->start;
 
     if(row->parentTable) {
         if(row->parentTable->fieldsCount < nofIterations)
@@ -197,8 +197,8 @@ TStatus      TDBRow_Set(TMemMgr *memmgr, TDBRow *row, TCount nofParams, ...) {
 
 TString row_to_sql_update(TDBRow *row, TDBTable *table) {
     TString      sql=NULL;
-    TLstNod *nodeFields;
-    TLstNod *nodeCells;
+    TNode *nodeFields;
+    TNode *nodeCells;
 
     try(rwtsqlu_001)
 
@@ -248,7 +248,7 @@ TString row_to_sql_delete(TDBRow *row, TDBTable *table) {
 
 TString row_to_sql_insert(TDBRow *row, TDBTable *table) {
     TString      sql;
-    TLstNod *node;
+    TNode *node;
     char aspasSimples = 0x27;
 
     try(rwtsqli_001)

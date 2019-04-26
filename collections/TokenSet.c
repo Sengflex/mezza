@@ -7,7 +7,7 @@
 
 #include <string.h>
 #define MZ_TokenSet_IMPLEMENT
-#include "TTokenSet.h"
+#include "TokenSet.h"
 #include "../base/TObject.h"
 #include "../base/TList.h"
 #include "../str/TString.h"
@@ -84,7 +84,7 @@ TString   TokenSet_ToString(TList *tokenset, int charSep) {
 	return ret;
 }
 
-int token_tlistcallback(TLstNod *node, void *tkntext) {
+int token_tlistcallback(TNode *node, void *tkntext) {
 	if(0==strcmp((char*)tkntext, (char *)node->item))
 		return 1;
 	return 0;

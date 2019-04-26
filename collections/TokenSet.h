@@ -28,7 +28,7 @@
     define_exception(ExceptionTTokenSetTokenSetting, "Falha em mudar o valor do token")
 #endif
 
-int token_tlistcallback(TLstNod *node, void *tkntext);
+int token_tlistcallback(TNode *node, void *tkntext);
 
 /**
  *

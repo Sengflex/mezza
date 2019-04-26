@@ -48,7 +48,7 @@ struct DBRow {
 
 struct DBCursor {
     TDBTable  *table;
-    TLstNod *rowCursor;
+    TNode *rowCursor;
     TSize      pageSize;
 };
 

@@ -10,7 +10,7 @@
 #include <mezza/base/TMemMgr.h>
 #include <mezza/base/TObject.h>
 #include <mezza/Conf.h>
-#include <mezza/collections/TMap.h>
+#include <mezza/collections/Map.h>
 
 TEST_MODULE
 

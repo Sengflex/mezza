@@ -13,12 +13,8 @@ typedef unsigned long int TId;
 typedef unsigned long int TLenght;
 typedef unsigned long int TCount;
 typedef unsigned long int TPosition;
-typedef unsigned long long int TIdentifier;
 typedef unsigned char     TBool;
 typedef unsigned int      TStatus;
-typedef void             *TBaseItem;
-typedef void             *TBaseValue;
-typedef long int          error_t;
 
 /* Valores para TBool.
  * TRUE deve sempre ser DIFERENTE DE ZERO.

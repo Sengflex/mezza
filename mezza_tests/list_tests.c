@@ -11,13 +11,13 @@
 
 TEST_MODULE
 
-static int finder1(TLstNod *node, void *extra) {
+static int finder1(TNode *node, void *extra) {
     if(*((int *)node->item) == *((int *)extra))
         return 1;
     return 0;
 }
 
-static int nodecbk1(TLstNod *node, void *extra) {
+static int nodecbk1(TNode *node, void *extra) {
     *((int *)extra) += *((int *)node->item);
     return 0;
 }
@@ -30,7 +30,7 @@ TEST_IMPL_TEST(_list_all) {
     int item3 = 300;
     int item4 = 400;
     int sum1=0;
-    TLstNod *node1;
+    TNode *node1;
 
     list1 = TList_Create(TMemMgr_Init(&memmgr));
     TEST_ASSERT_FATAL(list1, "Falha de criação")

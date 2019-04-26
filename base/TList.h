@@ -23,10 +23,10 @@
 #include <stdio.h>
 
 typedef struct List      TList;
-typedef struct LstNod   TLstNod;
+typedef struct Node      TNode;
 typedef void            *TItem;
 
-typedef int (*FListNodeCallback)(TLstNod *, void *);
+typedef int (*FListNodeCallback)(TNode *, void *);
 
 #ifndef MZ_BASE_LIST_H_IMPLEMENT
     declare_exception(ExceptionTListCreation)
@@ -36,16 +36,16 @@ typedef int (*FListNodeCallback)(TLstNod *, void *);
     define_exception(ExceptionTListAddition, "Falha em adicionar item à lista")
 #endif
 
-struct LstNod {
+struct Node {
     void    *item;
     TBool    itemIsObj;
-    TLstNod *prev;
-    TLstNod *next;
+    TNode *prev;
+    TNode *next;
 };
 
 struct List {
-    TLstNod *start;
-    TLstNod *end;
+    TNode *start;
+    TNode *end;
     TSize    size;
 };
 /**
@@ -63,20 +63,20 @@ TList   *TList_Create(TMemMgr *memmgr);
  * */
 void    *TList_Add__Backend    (TList *list, void *item, TBool itemIsObj);
 
-TLstNod *TList_Get    (TList *list, void *item);
+TNode *TList_Get    (TList *list, void *item);
 
-TLstNod *TList_GetAt  (TList *list, TPosition pos);
+TNode *TList_GetAt  (TList *list, TPosition pos);
 
-TLstNod *TList_Find   (TList *list, FListNodeCallback finder, void *extra);
+TNode *TList_Find   (TList *list, FListNodeCallback finder, void *extra);
 
-TBool    TList_CheckNode(TList *list, TLstNod *node);
+TBool    TList_CheckNode(TList *list, TNode *node);
 
 #define  TList_Rem(LIST, NODE) TList_Rem__Backend(LIST, NODE, NULL)
 #define  TList_RemWithUserData(LIST, NODE, USERDATA) TList_Rem__Backend(LIST, NODE, USERDATA)
 
-TLstNod *TList_Rem__Backend(TList *list, TLstNod *node, void *userdata);
+TNode *TList_Rem__Backend(TList *list, TNode *node, void *userdata);
 
-TStatus  TList_Unlink(TList *list, TLstNod *node);
+TStatus  TList_Unlink(TList *list, TNode *node);
 
 int      TList_Foreach(TList *list, FListNodeCallback cback, void *extra);
 
@@ -85,7 +85,7 @@ void     TList_ForeachDoDestroy(TList *list, void *userdata);
 void     TList_ForeachDoDestroyByPassDtor(TList *list);
 
 #define LOOPLIST(LIST, ACTION) { \
-        TLstNod *_NODE_ = (LIST)->start; \
+        TNode *_NODE_ = (LIST)->start; \
         while(_NODE_) { \
             ACTION
 

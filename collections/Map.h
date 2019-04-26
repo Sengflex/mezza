@@ -27,7 +27,7 @@ typedef struct MapEntry {
   TBool valueIsObj;
 } TMapEntry;
 
-int        map_tlistcallback(TLstNod *node, void *tkntext);
+int        map_tlistcallback(TNode *node, void *tkntext);
 
 #define    Map_SetEntry(MAP, KEY, VALUE) \
                 Map_SetEntry__Backend(MAP, KEY, VALUE, FALSE, NULL)

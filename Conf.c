@@ -10,8 +10,8 @@
 #include "base/TList.h"
 #include "str/StringBuilder.h"
 #include "str/TString.h"
-#include "collections/TMap.h"
-#include "collections/TTokenSet.h"
+#include "collections/Map.h"
+#include "collections/TokenSet.h"
 
 TStatus Conf_LoadFromFile(TList *confsMap, char *filename) {
 	FILE      *fileStream  = NULL;
@@ -99,7 +99,7 @@ TStatus   Conf_SaveToFile(TList *confsMap, char *filename) {
 }
 
 TStatus Conf_Set(TList *confsMap, char *conf, char *value) {
-	TLstNod          *entryNode = NULL;
+	TNode          *entryNode = NULL;
 	TMapEntry *entry     = NULL;
 	TString           key       = NULL;
 	TString           value2    = NULL;
@@ -132,7 +132,7 @@ TStatus Conf_Set(TList *confsMap, char *conf, char *value) {
 }
 
 TString Conf_Get(TList *confsMap, char *conf) {
-	TLstNod          *entryNode = NULL;
+	TNode          *entryNode = NULL;
 
 	entryNode = Map_GetEntryNode(confsMap, conf);
 
