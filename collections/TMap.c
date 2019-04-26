@@ -4,118 +4,13 @@
 #include "../base/TObject.h"
 #include <assert.h>
 
-static void tmapCleaner(TObject obj, void *userdata);
+#define    TMapEntry_Create(MEMMGR, KEY, VAL) \
+                TMapEntry_Create__Backend(MEMMGR, KEY, VAL, FALSE)
+#define    TMapEntry_CreateObj(MEMMGR, KEY, VAL) \
+                TMapEntry_Create__Backend(MEMMGR, KEY, VAL, TRUE)
 
-TMap *TMap_Create(TMemMgr *memmgr) {
-	TMap *map = NULL;
+static void TMapEntry_dtor(TObject obj, void *userdata);
 
-	#ifdef DEBUG
-		assert(memmgr);
-	#endif
-	
-	map = TObject_Create(memmgr, sizeof(TMap), tmapCleaner);
-	onerror(map) 
-		throw(ExceptionTMapCreation, NULL)
-	
-	map->entries = TList_Create(memmgr);
-	onerror(map->entries) {
-		TObject_DestroyByPassDtor(map, NULL);
-		throw(ExceptionTMapCreation, NULL)
-	}
-	
-	map->entriesSize = 0;
-	
-	return map;
-}
-void *TMap_SetEntry__Backend(TMap *map, TString key, void *value, TBool valueIsObj) {
-	TLstNod *nodeKey;
-	TMapEntry *entry;
-
-	#ifdef DEBUG
-		assert(map);
-		assert(key);
-	#endif
-
-	nodeKey = TMap_GetEntryNode(map, key);
-	if (nodeKey) {
-		entry = (TMapEntry *)nodeKey->item;
-	} else {
-		entry = TMapEntry_Create__Backend(TObject_ManagerOf(map), key, value, valueIsObj);
-		onerror(entry) {
-			throw_note(ExceptionTMapSetEntry, NULL, "Criacao de objeto de entrada")
-		}
-		onerror(TList_AddObj(map->entries, entry)) {
-			TObject_Destroy(entry, NULL);
-			throw_note(ExceptionTMapSetEntry, NULL, "Adicao de entrada à lista")
-		}
-	}
-	entry->value = value;
-	
-	map->entriesSize++;
-	return value;
-}
-
-void TMap_UnsetEntry__Backend(TMap *map, char *key, void *userdata) {
-  TLstNod *nodeKey;
-
-	#ifdef DEBUG
-		assert(map);
-		assert(key);
-	#endif
-
-  nodeKey = TMap_GetEntryNode(map, key);
-  if (nodeKey) {
-    TList_Rem__Backend(map->entries, nodeKey, userdata);
-		
-  	map->entriesSize--;
-	}
-}
-
-TLstNod *TMap_GetEntryNode(TMap *map, char *key) {
-	#ifdef DEBUG
-		assert(map);
-		assert(key);
-	#endif
-
-  LOOPLIST(map->entries, )
-  	if (0 == strcmp(((TMapEntry *)_NODE_->item)->key, key)) 
-			return _NODE_;
-  END_LOOPLIST 
-	
-	return NULL;
-}
-void *TMap_GetEntry(TMap *map, char *key) {
-  TLstNod *nodeKey;
-
-	#ifdef DEBUG
-		assert(map);
-		assert(key);
-	#endif
-
-  nodeKey = TMap_GetEntryNode(map, key);
-  if (nodeKey)
-    return ((TMapEntry *)nodeKey->item)->value;
-		
-  return NULL;
-}
-static void tmapCleaner(TObject obj, void *userdata) {
-	TMap *map = (TMap *)obj;
-	if(map->entries) {
-		if(map->entries->start) 
-			TList_ForeachDoDestroy(map->entries, userdata);
-		TObject_Destroy(map->entries, NULL);
-	}	
-}
-
-static void TMapEntry_dtor(TObject obj, void *userdata) {
-  TMapEntry *entry = obj;
-
-  if (entry->key)
-    TObject_Destroy(entry->key, userdata);
-	if(entry->valueIsObj == TRUE) {
-		TObject_Destroy(entry->value, userdata);
-	}
-}
 TMapEntry *TMapEntry_Create__Backend(TMemMgr *memmgr, TString key, void *value, TBool valueIsObj) {
     TMapEntry *ret;
 
@@ -133,4 +28,78 @@ TMapEntry *TMapEntry_Create__Backend(TMemMgr *memmgr, TString key, void *value, 
 		ret->valueIsObj = valueIsObj;
     
     return ret;
+}
+
+void *Map_SetEntry__Backend(TList *map, TString key, void *value, TBool valueIsObj, void *userdata) {
+	TLstNod *nodeKey;
+	TMapEntry *entry;
+
+	#ifdef DEBUG
+		assert(map);
+		assert(key);
+	#endif
+
+	nodeKey = Map_GetEntryNode(map, key);
+	if (nodeKey) {
+		entry = (TMapEntry *)nodeKey->item;
+		if(entry->valueIsObj == TRUE)
+			TObject_Destroy(entry->value, userdata);
+		entry->value = value;
+		entry->valueIsObj = valueIsObj;
+	} else {
+		entry = TMapEntry_Create__Backend(TObject_ManagerOf(map), key, value, valueIsObj);
+		onerror(entry) {
+			throw_note(ExceptionTMapSetEntry, NULL, "Criacao de objeto de entrada")
+		}
+		onerror(TList_AddObj(map, entry)) {
+			TObject_Destroy(entry, NULL);
+			throw_note(ExceptionTMapSetEntry, NULL, "Adicao de entrada à lista")
+		}
+	}
+
+	return value;
+}
+
+void Map_UnsetEntry__Backend(TList *map, char *key, void *userdata) {
+  TLstNod *nodeKey;
+
+	#ifdef DEBUG
+		assert(map);
+		assert(key);
+	#endif
+
+  nodeKey = Map_GetEntryNode(map, key);
+  if (nodeKey)
+    TList_Rem__Backend(map, nodeKey, userdata);
+}
+
+int map_tlistcallback(TLstNod *node, void *key) {
+	if (0 == strcmp(((TMapEntry *)node->item)->key, key)) 
+			return 1;
+	return 0;
+}
+
+void *Map_GetEntry(TList *map, char *key) {
+  TLstNod *nodeKey;
+
+	#ifdef DEBUG
+		assert(map);
+		assert(key);
+	#endif
+
+  nodeKey = Map_GetEntryNode(map, key);
+  if (nodeKey)
+    return ((TMapEntry *)nodeKey->item)->value;
+		
+  return NULL;
+}
+
+static void TMapEntry_dtor(TObject obj, void *userdata) {
+  TMapEntry *entry = obj;
+
+  if (entry->key)
+    TObject_Destroy(entry->key, userdata);
+	if(entry->valueIsObj == TRUE) {
+		TObject_Destroy(entry->value, userdata);
+	}
 }

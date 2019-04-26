@@ -4,11 +4,19 @@
  *  Created on: 26 de dez de 2018
  *      Author: paioniu
  */
-#include <mezza/SimpleTest.h>
-#include <mezza/base/TMemMgr.h>
-#include <mezza/base/TObject.h>
-#include <mezza/collections/TMap.h>
-#include <mezza/collections/TTokenSet.h>
+#include "../SimpleTest.h"
+#include "../base/TMemMgr.h"
+#include "../base/TObject.h"
+#include "../collections/TMap.h"
+#include "../collections/TTokenSet.h"
+
+#define    TMapEntry_Create(MEMMGR, KEY, VAL) \
+                TMapEntry_Create__Backend(MEMMGR, KEY, VAL, FALSE)
+#define    TMapEntry_CreateObj(MEMMGR, KEY, VAL) \
+                TMapEntry_Create__Backend(MEMMGR, KEY, VAL, TRUE)
+
+extern TMapEntry *TMapEntry_Create__Backend(TMemMgr *memmgr, TString key,
+                                        void *value, TBool valueIsObj);
 
 TEST_MODULE
 
@@ -115,7 +123,7 @@ TEST_IMPL_TEST(_mapentry_all) {
 }
 
 TEST_IMPL_TEST(_map_all) {
-	TMap *map1;
+	TList *map1;
 	TMemMgr memmgr;
 	TString key1;
 	int value1=191;
@@ -132,46 +140,46 @@ TEST_IMPL_TEST(_map_all) {
 	TString key5;
 	TString value4;
 
-	map1 = TMap_Create(TMemMgr_Init(&memmgr));
+	map1 = TList_Create(TMemMgr_Init(&memmgr));
 	TEST_ASSERT(map1, "Falha de criação")
 
 	TEST_CHECK_PREPARATION(key1 = TString_Create(&memmgr, "key one", 0))
-	ret1 = TMap_SetEntry(map1, key1, pvalue1);
+	ret1 = Map_SetEntry(map1, key1, pvalue1);
 	TEST_ASSERT(ret1==pvalue1, "Falha de retorno")
 
 	TEST_CHECK_PREPARATION(key2 = TString_Create(&memmgr, "key two", 0))
-	TEST_CHECK_PREPARATION(TMap_SetEntry(map1, key2, pvalue2))
+	TEST_CHECK_PREPARATION(Map_SetEntry(map1, key2, pvalue2))
 	TEST_CHECK_PREPARATION(key3 = TString_Create(&memmgr, "key three", 0))
-	TEST_CHECK_PREPARATION(TMap_SetEntry(map1, key3, pvalue3))
+	TEST_CHECK_PREPARATION(Map_SetEntry(map1, key3, pvalue3))
 
-	retValueForKey2 = TMap_GetEntry(map1, "key two");
+	retValueForKey2 = Map_GetEntry(map1, "key two");
 	TEST_ASSERT(retValueForKey2==pvalue2, "Falha de obtenção de valor da chave")
 
-	retValueForKey2 = TMap_SetEntry(map1, "key two", pvalue3);
+	retValueForKey2 = Map_SetEntry(map1, "key two", pvalue3);
 	TEST_ASSERT(retValueForKey2==pvalue3, "Falha de retorno")
 
-	retValueForKey2 = TMap_GetEntry(map1, "key two");
+	retValueForKey2 = Map_GetEntry(map1, "key two");
 	TEST_ASSERT(retValueForKey2==pvalue3, "Falha de obtenção de valor da chave após reatribuição")
 
-	TMap_UnsetEntry(map1, "key two");
-	retValueForKey2 = TMap_GetEntry(map1, "key two");
+	Map_UnsetEntry(map1, "key two");
+	retValueForKey2 = Map_GetEntry(map1, "key two");
 	TEST_ASSERT(retValueForKey2==NULL, "Falha de retorno. Chave não deveria existir")
 	
-	TMap_UnsetEntry(map1, "key one");
+	Map_UnsetEntry(map1, "key one");
 	TEST_ASSERT(FALSE == TObject_Exists(&memmgr, key1), "Key1 não deveria mais existir")
 
-	key4 = TString_Create(&memmgr, "key four", NULL);
+	key4 = TString_Create(&memmgr, "key four", 0);
 	TEST_CHECK_PREPARATION(key4)
-	value4 = TString_Create(&memmgr, "value four", NULL);
+	value4 = TString_Create(&memmgr, "value four", 0);
 	TEST_CHECK_PREPARATION(value4)
-	TMap_SetEntry(map1, key4, value4);
-	TMap_UnsetEntry(map1, key4);
+	Map_SetEntry(map1, key4, value4);
+	Map_UnsetEntry(map1, key4);
 	TEST_ASSERT(TRUE == TObject_Exists(&memmgr, value4), "Value4 ainda deveria existir")
 
-	key5 = TString_Create(&memmgr, "key five", NULL);
+	key5 = TString_Create(&memmgr, "key five", 0);
 	TEST_CHECK_PREPARATION(key5)
-	TMap_SetEntryObj(map1, key5, value4);
-	TMap_UnsetEntry(map1, "key five");
+	Map_SetEntryObj(map1, key5, value4);
+	Map_UnsetEntry(map1, "key five");
 	TEST_ASSERT(FALSE == TObject_Exists(&memmgr, value4), "Value4 não deveria mais existir")
 }
 
@@ -184,18 +192,18 @@ void dtor1(TObject obj, void *extra) {
 TEST_IMPL_TEST(_map_val_as_obj) {
 	TMemMgr memmgr;
 	TString val1, key1;
-	TMap *map1;
+	TList *map1;
 	int dcount = 0;
 
 	val1 = TString_Create(TMemMgr_Init(&memmgr), "str 1", 0);
 	TEST_CHECK_PREPARATION(val1)
 	TObject_SetDtor(val1, dtor1);
-	map1 = TMap_Create(&memmgr);
+	map1 = TList_Create(&memmgr);
 	TEST_CHECK_PREPARATION(map1)
 	key1 = TString_Create(&memmgr, "unico", 0);
 	TEST_CHECK_PREPARATION(key1)
-	TEST_CHECK_PREPARATION(TMap_SetEntryObj(map1, key1, val1))
-	TMap_UnsetEntryWithUserData(map1, key1, &dcount);
+	TEST_CHECK_PREPARATION(Map_SetEntryObj(map1, key1, val1))
+	Map_UnsetEntryWithUserData(map1, key1, &dcount);
 	TEST_ASSERT(dcount == 1, "dcount deveria ser igual a 1")
 }
 

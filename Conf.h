@@ -25,22 +25,22 @@
  *
  * Dispara: ExceptionConfLoad
  */
-TStatus Conf_LoadFromFile(TMap *confsMap, char *filename);
+TStatus Conf_LoadFromFile(TList *confsMap, char *filename);
 /**
  *
  *
  * Dispara: ExceptionConfSave
  */
-TStatus Conf_SaveToFile(TMap *confsMap, char *filename);
+TStatus Conf_SaveToFile(TList *confsMap, char *filename);
 /**
  * 
  * Exceções:
  * ExceptionConfSet
 */
-TStatus Conf_Set(TMap *confsMap, char *conf, char *value);
+TStatus Conf_Set(TList *confsMap, char *conf, char *value);
 
-TString Conf_Get(TMap *confsMap, char *conf);
+TString Conf_Get(TList *confsMap, char *conf);
 
-#define Conf_Unset(CNFMAP, KEY) TMap_UnsetEntry(CNFMAP, KEY)
+#define Conf_Unset(CNFMAP, KEY) Map_UnsetEntry(CNFMAP, KEY)
 
 #endif /* MZ_CONF_H */

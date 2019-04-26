@@ -11,7 +11,7 @@ OBJs   := $(patsubst %.c,$(OUTDIR)/%.o,$(SRCs))
 
 TGT    := $(OUTDIR)/mezza_tests.exec
 PREFIX := /usr/local
-CFLAGS := -g -Wall -I$(PROJDIR)/sqlite3 -I$(PROJDIR)
+CFLAGS := -g -Wall -Wno-unused-variable -Wno-unused-but-set-variable -I$(PROJDIR)/sqlite3 -I$(PROJDIR)
 LDFLAGS := -L$(PROJDIR)/sqlite3/build -L$(PROJDIR)/mezza/build -lmezza -lsqlite3 -ldl -lpthread
 
 $(TGT): $(OUTDIR) $(OBJs)

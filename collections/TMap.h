@@ -11,7 +11,7 @@
     declare_exception(ExceptionTMapNotFoundEntry)
     declare_exception(ExceptionTMapEntryCreation)
 #else
-    define_exception(ExceptionTMapCreation, "Falha em criar o objeto TMap")
+    define_exception(ExceptionTMapCreation, "Falha em criar o objeto TList")
     define_exception(ExceptionTMapSetEntry, "Falha em atribuir valor a entrada no mapa")
     define_exception(ExceptionTMapNotFoundEntry, "Entrada nao encontrada no mapa")
     define_exception(ExceptionTMapEntryCreation, "Falha em criar o objeto TMapEntry")
@@ -21,59 +21,32 @@ extern void *TREAT_VALUE_AS_OBJECT;
 
 typedef int (*FMapFinder)(char *key, char *value, void *data);
 
-typedef struct Map {
-    TList *entries;
-    TSize  entriesSize;
-} TMap;
-
 typedef struct MapEntry {
   TString key;
   void *value;
   TBool valueIsObj;
 } TMapEntry;
 
-/**
- * Cria e retorna um mapa
- * 
- * Parâmetros:
- * - memmgr: Gerenciador de memória
- * 
- * Retorno:
- * NULL em caso de erro.
- * 
- * Exceções:
- * ExceptionTMapCreation
- * 
- * Destruição: 
- * Ao chamar TObject_Destroy, o segundo parâmetro deve 
- * ser TREAT_VALUE_AS_OBJECT caso se deseje que os valores nos pares 
- * sejam tratados como objetos e destruído assim como as chaves são 
- * por padrão
-*/
-TMap      *TMap_Create(TMemMgr *memmgr);
+int        map_tlistcallback(TLstNod *node, void *tkntext);
 
-#define    TMap_SetEntry(MAP, KEY, VALUE) \
-                TMap_SetEntry__Backend(MAP, KEY, VALUE, FALSE)
-#define    TMap_SetEntryObj(MAP, KEY, VALUE) \
-                TMap_SetEntry__Backend(MAP, KEY, VALUE, TRUE)
+#define    Map_SetEntry(MAP, KEY, VALUE) \
+                Map_SetEntry__Backend(MAP, KEY, VALUE, FALSE, NULL)
+#define    Map_SetEntryObj(MAP, KEY, VALUE) \
+                Map_SetEntry__Backend(MAP, KEY, VALUE, TRUE, NULL)
+#define    Map_SetEntryWithUserData(MAP, KEY, VALUE, USERDATA) \
+                Map_SetEntry__Backend(MAP, KEY, VALUE, FALSE, USERDATA)
+#define    Map_SetEntryObjWithUserData(MAP, KEY, VALUE, USERDATA) \
+                Map_SetEntry__Backend(MAP, KEY, VALUE, TRUE, USERDATA)
 
-#define    TMap_UnsetEntry(MAP, KEY) TMap_UnsetEntry__Backend(MAP, KEY, NULL)
-#define    TMap_UnsetEntryWithUserData(MAP, KEY, USERDATA) TMap_UnsetEntry__Backend(MAP, KEY, USERDATA)
+#define    Map_UnsetEntry(MAP, KEY) Map_UnsetEntry__Backend(MAP, KEY, NULL)
+#define    Map_UnsetEntryWithUserData(MAP, KEY, USERDATA) Map_UnsetEntry__Backend(MAP, KEY, USERDATA)
 
-void       TMap_UnsetEntry__Backend(TMap *map, char *key, void *userdata);
+void       Map_UnsetEntry__Backend(TList *map, char *key, void *userdata);
 
-void      *TMap_GetEntry(TMap *map, char *key);
+void      *Map_GetEntry(TList *map, char *key);
 
-TLstNod   *TMap_GetEntryNode(TMap *map, char *key);
+#define    Map_GetEntryNode(MAP, KEY) TList_Find(MAP, map_tlistcallback, KEY)
 
-#define    TMapEntry_Create(MEMMGR, KEY, VAL) \
-                TMapEntry_Create__Backend(MEMMGR, KEY, VAL, FALSE)
-#define    TMapEntry_CreateObj(MEMMGR, KEY, VAL) \
-                TMapEntry_Create__Backend(MEMMGR, KEY, VAL, TRUE)
-
-TMapEntry *TMapEntry_Create__Backend(TMemMgr *memmgr, TString key,
-                                        void *value, TBool valueIsObj);
-void      *TMap_SetEntry__Backend(TMap *map, TString key, 
-                                        void *value, TBool valueIsObj);
+void      *Map_SetEntry__Backend(TList *map, TString key, void *value, TBool valueIsObj, void *userdata);
 
 #endif /* MZ_COLLTMAP_TMAP_H */

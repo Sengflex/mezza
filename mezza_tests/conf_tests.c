@@ -15,8 +15,8 @@
 TEST_MODULE
 
 TEST_IMPL_TEST(_conf_all) {
-    TMap *map1;
-    TMap *map2;
+    TList *map1;
+    TList *map2;
     TMemMgr memmgr;
     char *filename1 = "conf_tests_001.txt";
     FILE *filestream1;
@@ -32,8 +32,8 @@ TEST_IMPL_TEST(_conf_all) {
     char *keys[3] = {"conf1", "conf2", "conf3"};
     char *values[3] = {"170", "author of", "date of"};
 
-    TEST_CHECK_PREPARATION(map1 = TMap_Create(TMemMgr_Init(&memmgr)))
-    TEST_CHECK_PREPARATION(map2 = TMap_Create(&memmgr))
+    TEST_CHECK_PREPARATION(map1 = TList_Create(TMemMgr_Init(&memmgr)))
+    TEST_CHECK_PREPARATION(map2 = TList_Create(&memmgr))
 
     ret = Conf_Set(map1, keys[0], values[0]);
     TEST_ASSERT(ret==OK, "Falha de retorno")
@@ -51,7 +51,7 @@ TEST_IMPL_TEST(_conf_all) {
 
     ret = Conf_LoadFromFile(map2, filename1);
     TEST_ASSERT(ret==OK, "Retorno de erro")
-    TEST_ASSERT(map2->entries->size==3, "Número de entradas inválido")
+    TEST_ASSERT(map2->size==3, "Número de entradas inválido")
 
     retvalue1 = Conf_Get(map2, keys[0]);
     TEST_ASSERT(retvalue1, "Retorno de erro")
