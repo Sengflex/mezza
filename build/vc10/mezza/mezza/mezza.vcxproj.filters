@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <None Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="base">
+      <UniqueIdentifier>{eb503ef9-0bb8-4f44-b1df-02f7b82c832d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="collections">
+      <UniqueIdentifier>{49ee984a-69ad-40b1-8897-635e625df655}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="dbase">
+      <UniqueIdentifier>{75d1b52d-3def-444c-b72d-71568389f2eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="str">
+      <UniqueIdentifier>{54b70287-0726-42db-b9b7-ff11c8afb2ff}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\src\mezza\Conf.c" />
+    <ClCompile Include="..\..\..\..\src\mezza\FileUtil.c" />
+    <ClCompile Include="..\..\..\..\src\mezza\base\Exceptions.c">
+      <Filter>base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\mezza\base\TList.c">
+      <Filter>base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\mezza\base\TMemMgr.c">
+      <Filter>base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\mezza\base\TObject.c">
+      <Filter>base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\mezza\collections\Map.c">
+      <Filter>collections</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\mezza\collections\TokenSet.c">
+      <Filter>collections</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\mezza\dbase\TDBField.c">
+      <Filter>dbase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\mezza\dbase\TDBRow.c">
+      <Filter>dbase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\mezza\dbase\TDBTable.c">
+      <Filter>dbase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\mezza\dbase\TSQLite3Conn.c">
+      <Filter>dbase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\mezza\str\StringBuilder.c">
+      <Filter>str</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\mezza\str\StringUtils.c">
+      <Filter>str</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\mezza\str\TString.c">
+      <Filter>str</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\mezza\str\TStringVector.c">
+      <Filter>str</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\src\mezza\Conf.h" />
+    <ClInclude Include="..\..\..\..\src\mezza\FileUtil.h" />
+    <ClInclude Include="..\..\..\..\src\mezza\Lang.h" />
+    <ClInclude Include="..\..\..\..\src\mezza\OnError.h" />
+    <ClInclude Include="..\..\..\..\src\mezza\SimpleTest.h" />
+    <ClInclude Include="..\..\..\..\src\mezza\Type.h" />
+    <ClInclude Include="..\..\..\..\src\mezza\base\Exceptions.h">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\mezza\base\TList.h">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\mezza\base\TMemMgr.h">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\mezza\base\TObject.h">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\mezza\collections\Map.h">
+      <Filter>collections</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\mezza\collections\TokenSet.h">
+      <Filter>collections</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\mezza\dbase\TDBField.h">
+      <Filter>dbase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\mezza\dbase\TDBRow.h">
+      <Filter>dbase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\mezza\dbase\TDBTable.h">
+      <Filter>dbase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\mezza\dbase\TDBType.h">
+      <Filter>dbase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\mezza\dbase\TSQLite3Conn.h">
+      <Filter>dbase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\mezza\str\StringBuilder.h">
+      <Filter>str</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\mezza\str\StringUtils.h">
+      <Filter>str</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\mezza\str\TString.h">
+      <Filter>str</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\mezza\str\TStringVector.h">
+      <Filter>str</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
