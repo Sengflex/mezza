@@ -20,12 +20,15 @@ srcs:= $(wildcard *.c) \
 objs:=$(patsubst %.c,%.o,$(srcs))
 
 stclib:=lib$(name).a
+stclib_tests:=$(name).exe
 
 stclib-release: clean
 	$(MAKE) cflags="$(rflags)" $(stclib)
 
 stclib-debug:
 	$(MAKE) cflags="$(dflags)" $(stclib)
+
+test-stclib:
 
 $(stclib): $(objs)
 	$(ar) $@ $(objs)
