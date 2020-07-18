@@ -4,3 +4,5 @@ collections/*.o
 dbase/*.o
 str/*.o
 *.a
+*.exe
+*.db

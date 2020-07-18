@@ -4,23 +4,11 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Static Library - Release",
+            "label": "StaticLib (Debug)",
             "type": "shell",
             "command": "mingw32-make",
             "args": [
-                "stclib-release"
-            ],
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            }
-        },
-        {
-            "label": "Static Library - Debug",
-            "type": "shell",
-            "command": "mingw32-make",
-            "args": [
-                "stclib-debug"
+                "StaticLib-Debug"
             ],
             "group": {
                 "kind": "build",
@@ -31,16 +19,45 @@
             ]
         },
         {
-            "label": "Static Library - Clean",
+            "label": "StaticLib (Clean)",
             "type": "shell",
             "command": "mingw32-make",
             "args": [
-                "clean"
+                "clean-StaticLib-Debug"
             ],
             "group": {
                 "kind": "build",
                 "isDefault": true
-            }
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Tests",
+            "type": "shell",
+            "command": "mingw32-make",
+            "args": [
+                "Tests"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [
+                "$gcc"
+            ]
+        },
+        {
+            "label": "Tests (Clean)",
+            "type": "shell",
+            "command": "mingw32-make",
+            "args": [
+                "clean-Tests"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": []
         }
     ]
 }
