@@ -1,8 +1,1 @@
-*.o
-base/*.o
-collections/*.o
-dbase/*.o
-str/*.o
-*.a
-*.exe
-*.db
+build/
