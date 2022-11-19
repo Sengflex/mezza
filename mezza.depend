@@ -1,0 +1,421 @@
+# depslib dependency file v1.0
+1668877241 source:c:\users\danilo\lab\libs\mezza\base\tmemmgr.c
+	"TMemMgr.h"
+	"../OnError.h"
+	"../Type.h"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1668877241 c:\users\danilo\lab\libs\mezza\base\tmemmgr.h
+	"../Type.h"
+
+1668877241 c:\users\danilo\lab\libs\mezza\type.h
+
+1668877241 c:\users\danilo\lab\libs\mezza\onerror.h
+
+1668877241 source:c:\users\danilo\lab\libs\mezza\base\exceptions.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<setjmp.h>
+	"Exceptions.h"
+	"TMemMgr.h"
+	"../OnError.h"
+
+1668877241 c:\users\danilo\lab\libs\mezza\base\exceptions.h
+	<stdio.h>
+	<string.h>
+	<setjmp.h>
+
+1668877241 source:c:\users\danilo\lab\libs\mezza\base\tlist.c
+	"TList.h"
+	"TObject.h"
+	"Exceptions.h"
+	"TMemMgr.h"
+	"../OnError.h"
+	<stdio.h>
+
+1668877241 c:\users\danilo\lab\libs\mezza\base\tlist.h
+	"Exceptions.h"
+	"TMemMgr.h"
+	"../OnError.h"
+	<stdio.h>
+
+1668877241 c:\users\danilo\lab\libs\mezza\base\tobject.h
+	"TMemMgr.h"
+	<stdio.h>
+	<stdlib.h>
+	"Exceptions.h"
+
+1668877241 source:c:\users\danilo\lab\libs\mezza\base\tobject.c
+	"TObject.h"
+	"TMemMgr.h"
+	"../OnError.h"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1668877241 source:c:\users\danilo\lab\libs\mezza\collections\map.c
+	"Map.h"
+	"../base/TMemMgr.h"
+	"../base/TObject.h"
+	<assert.h>
+
+1668877241 c:\users\danilo\lab\libs\mezza\collections\map.h
+	"../base/TMemMgr.h"
+	"../base/Exceptions.h"
+	"../base/TList.h"
+	"../str/TString.h"
+
+1668877241 c:\users\danilo\lab\libs\mezza\str\tstring.h
+	"../base/TMemMgr.h"
+	"../base/Exceptions.h"
+
+1668877241 source:c:\users\danilo\lab\libs\mezza\collections\tokenset.c
+	<string.h>
+	"TokenSet.h"
+	"../base/TObject.h"
+	"../base/TList.h"
+	"../str/TString.h"
+
+1668877241 c:\users\danilo\lab\libs\mezza\collections\tokenset.h
+	"../Type.h"
+	"../base/TMemMgr.h"
+	"../base/Exceptions.h"
+	"../base/TList.h"
+	"../str/TString.h"
+
+1668877241 source:c:\users\danilo\lab\libs\mezza\conf.c
+	"Conf.h"
+	<stdio.h>
+	<string.h>
+	"FileUtil.h"
+	"base/TMemMgr.h"
+	"base/TObject.h"
+	"base/TList.h"
+	"str/StringBuilder.h"
+	"str/TString.h"
+	"collections/Map.h"
+	"collections/TokenSet.h"
+
+1668877241 c:\users\danilo\lab\libs\mezza\conf.h
+	"Type.h"
+	"base/TMemMgr.h"
+	"str/TString.h"
+	"base/Exceptions.h"
+	"base/TList.h"
+	"collections/Map.h"
+
+1668877241 c:\users\danilo\lab\libs\mezza\fileutil.h
+	"Lang.h"
+	"Type.h"
+	<stdio.h>
+	"base/Exceptions.h"
+
+1668877241 c:\users\danilo\lab\libs\mezza\lang.h
+
+1668877241 c:\users\danilo\lab\libs\mezza\str\stringbuilder.h
+	<stdio.h>
+	"../base/TMemMgr.h"
+	"../str/TString.h"
+	"../base/Exceptions.h"
+
+1668877241 source:c:\users\danilo\lab\libs\mezza\dbase\tdbfield.c
+	"TDBField.h"
+	<stdio.h>
+	<string.h>
+	"../Lang.h"
+	"../OnError.h"
+	"../base/TObject.h"
+	"../base/TMemMgr.h"
+	"../str/TString.h"
+
+1668877241 c:\users\danilo\lab\libs\mezza\dbase\tdbfield.h
+	"../Type.h"
+	"../base/TMemMgr.h"
+	"../base/Exceptions.h"
+
+1668877241 source:c:\users\danilo\lab\libs\mezza\dbase\tdbrow.c
+	"TDBRow.h"
+	"../OnError.h"
+	"../Lang.h"
+	"../Type.h"
+	"../base/TList.h"
+	"../base/TObject.h"
+	"../str/TString.h"
+	"../str/TStringVector.h"
+	<stdio.h>
+	<stdarg.h>
+
+1668877241 c:\users\danilo\lab\libs\mezza\dbase\tdbrow.h
+	"../base/TList.h"
+	"../Type.h"
+	"TDBType.h"
+	"../base/Exceptions.h"
+
+1668877241 c:\users\danilo\lab\libs\mezza\dbase\tdbtype.h
+	"../Type.h"
+	"../base/TList.h"
+	"../str/TString.h"
+	"TSQLite3Conn.h"
+	"TDBField.h"
+
+1668877241 c:\users\danilo\lab\libs\mezza\dbase\tsqlite3conn.h
+	<sqlite3.h>
+	"../base/Exceptions.h"
+	"../str/TString.h"
+	"../Type.h"
+
+1668606157 c:\users\danilo\lab\libs\sqlite3\sqlite3.h
+	<stdarg.h>
+
+1668877241 c:\users\danilo\lab\libs\mezza\str\tstringvector.h
+	"../base/TMemMgr.h"
+	"../base/Exceptions.h"
+	"../str/TString.h"
+
+1668877241 source:c:\users\danilo\lab\libs\mezza\dbase\tdbtable.c
+	<stdio.h>
+	<string.h>
+	"TDBTable.h"
+	"TDBRow.h"
+	"TDBField.h"
+	"TSQLite3Conn.h"
+	"../OnError.h"
+	"../base/TList.h"
+	"../Lang.h"
+	"../base/TObject.h"
+	"../str/StringBuilder.h"
+	"../base/Exceptions.h"
+
+1668877241 c:\users\danilo\lab\libs\mezza\dbase\tdbtable.h
+	"../Type.h"
+	"../str/TString.h"
+	"TSQLite3Conn.h"
+	"TDBType.h"
+	"../base/Exceptions.h"
+
+1668877241 source:c:\users\danilo\lab\libs\mezza\dbase\tsqlite3conn.c
+	"TSQLite3Conn.h"
+	<string.h>
+	"TDBTable.h"
+	"../Lang.h"
+	"../OnError.h"
+	"../base/TMemMgr.h"
+	"../base/TObject.h"
+	<sqlite3.h>
+
+1668877241 source:c:\users\danilo\lab\libs\mezza\fileutil.c
+	"FileUtil.h"
+	<stdio.h>
+	<string.h>
+	"OnError.h"
+
+1668877241 source:c:\users\danilo\lab\libs\mezza\str\stringbuilder.c
+	"StringBuilder.h"
+	<string.h>
+	<stdarg.h>
+	"../Lang.h"
+	"../OnError.h"
+	"../base/TObject.h"
+	"../FileUtil.h"
+
+1668877241 source:c:\users\danilo\lab\libs\mezza\str\stringutils.c
+	"StringUtils.h"
+	<stdio.h>
+	<string.h>
+	"../Lang.h"
+
+1668877241 c:\users\danilo\lab\libs\mezza\str\stringutils.h
+	<stdarg.h>
+	"../Type.h"
+
+1668877241 source:c:\users\danilo\lab\libs\mezza\str\tstring.c
+	"TString.h"
+	<stdarg.h>
+	<string.h>
+	"../OnError.h"
+	"../base/TObject.h"
+	"../str/StringUtils.h"
+
+1668877241 source:c:\users\danilo\lab\libs\mezza\str\tstringvector.c
+	"TStringVector.h"
+	"../Lang.h"
+	"../OnError.h"
+	"../base/TObject.h"
+
+1668877241 source:c:\users\danilo\lab\libs\mezza\_tests\collections.c
+	<mezza/SimpleTest.h>
+	<mezza/base/TMemMgr.h>
+	<mezza/base/TObject.h>
+	<mezza/collections/Map.h>
+	<mezza/collections/TokenSet.h>
+
+1668877241 c:\users\danilo\lab\libs\\mezza\simpletest.h
+	<stdio.h>
+	<string.h>
+
+1668877241 c:\users\danilo\lab\libs\\mezza\base\tmemmgr.h
+	"../Type.h"
+
+1668877241 c:\users\danilo\lab\libs\\mezza\type.h
+
+1668877241 c:\users\danilo\lab\libs\\mezza\base\tobject.h
+	"TMemMgr.h"
+	<stdio.h>
+	<stdlib.h>
+	"Exceptions.h"
+
+1668877241 c:\users\danilo\lab\libs\\mezza\base\exceptions.h
+	<stdio.h>
+	<string.h>
+	<setjmp.h>
+
+1668877241 c:\users\danilo\lab\libs\\mezza\collections\map.h
+	"../base/TMemMgr.h"
+	"../base/Exceptions.h"
+	"../base/TList.h"
+	"../str/TString.h"
+
+1668877241 c:\users\danilo\lab\libs\\mezza\base\tlist.h
+	"Exceptions.h"
+	"TMemMgr.h"
+	"../OnError.h"
+	<stdio.h>
+
+1668877241 c:\users\danilo\lab\libs\\mezza\onerror.h
+
+1668877241 c:\users\danilo\lab\libs\\mezza\str\tstring.h
+	"../base/TMemMgr.h"
+	"../base/Exceptions.h"
+
+1668877241 c:\users\danilo\lab\libs\\mezza\collections\tokenset.h
+	"../Type.h"
+	"../base/TMemMgr.h"
+	"../base/Exceptions.h"
+	"../base/TList.h"
+	"../str/TString.h"
+
+1668877241 source:c:\users\danilo\lab\libs\mezza\_tests\conf.c
+	<mezza/Type.h>
+	<mezza/SimpleTest.h>
+	<mezza/base/TMemMgr.h>
+	<mezza/base/TObject.h>
+	<mezza/Conf.h>
+	<mezza/collections/Map.h>
+
+1668877241 c:\users\danilo\lab\libs\\mezza\conf.h
+	"Type.h"
+	"base/TMemMgr.h"
+	"str/TString.h"
+	"base/Exceptions.h"
+	"base/TList.h"
+	"collections/Map.h"
+
+1668877241 source:c:\users\danilo\lab\libs\mezza\_tests\dbase.c
+	<mezza/dbase/TDBType.h>
+	<mezza/dbase/TSQLite3Conn.h>
+	<mezza/dbase/TDBRow.h>
+	<mezza/dbase/TDBTable.h>
+	<mezza/dbase/TDBField.h>
+	<mezza/FileUtil.h>
+	<mezza/base/TObject.h>
+	<mezza/base/TMemMgr.h>
+	<mezza/base/TList.h>
+	<mezza/SimpleTest.h>
+
+1668877241 c:\users\danilo\lab\libs\\mezza\dbase\tdbtype.h
+	"../Type.h"
+	"../base/TList.h"
+	"../str/TString.h"
+	"TSQLite3Conn.h"
+	"TDBField.h"
+
+1668877241 c:\users\danilo\lab\libs\\mezza\dbase\tsqlite3conn.h
+	<sqlite3.h>
+	"../base/Exceptions.h"
+	"../str/TString.h"
+	"../Type.h"
+
+1668877241 c:\users\danilo\lab\libs\\mezza\dbase\tdbfield.h
+	"../Type.h"
+	"../base/TMemMgr.h"
+	"../base/Exceptions.h"
+
+1668877241 c:\users\danilo\lab\libs\\mezza\dbase\tdbrow.h
+	"../base/TList.h"
+	"../Type.h"
+	"TDBType.h"
+	"../base/Exceptions.h"
+
+1668877241 c:\users\danilo\lab\libs\\mezza\dbase\tdbtable.h
+	"../Type.h"
+	"../str/TString.h"
+	"TSQLite3Conn.h"
+	"TDBType.h"
+	"../base/Exceptions.h"
+
+1668877241 c:\users\danilo\lab\libs\\mezza\fileutil.h
+	"Lang.h"
+	"Type.h"
+	<stdio.h>
+	"base/Exceptions.h"
+
+1668877241 c:\users\danilo\lab\libs\\mezza\lang.h
+
+1668877241 source:c:\users\danilo\lab\libs\mezza\_tests\exceptions.c
+	<stdio.h>
+	<mezza/SimpleTest.h>
+	<mezza/base/Exceptions.h>
+
+1668877241 source:c:\users\danilo\lab\libs\mezza\_tests\file.c
+	<mezza/SimpleTest.h>
+	<mezza/base/TMemMgr.h>
+	<mezza/FileUtil.h>
+
+1668877241 source:c:\users\danilo\lab\libs\mezza\_tests\list.c
+	<mezza/SimpleTest.h>
+	<mezza/base/TList.h>
+	<mezza/OnError.h>
+
+1668877241 source:c:\users\danilo\lab\libs\mezza\_tests\main.c
+	<stdio.h>
+	<stdlib.h>
+	<mezza/SimpleTest.h>
+	<mezza/base/Exceptions.h>
+
+1668877241 source:c:\users\danilo\lab\libs\mezza\_tests\mem.c
+	<mezza/SimpleTest.h>
+	<mezza/base/TMemMgr.h>
+
+1668877241 source:c:\users\danilo\lab\libs\mezza\_tests\objects.c
+	<mezza/SimpleTest.h>
+	<mezza/base/TObject.h>
+	<mezza/OnError.h>
+
+1668877241 source:c:\users\danilo\lab\libs\mezza\_tests\str.c
+	<mezza/SimpleTest.h>
+	<mezza/OnError.h>
+	<mezza/Lang.h>
+	<mezza/base/TObject.h>
+	<mezza/str/TString.h>
+	<mezza/str/StringUtils.h>
+	<mezza/str/StringBuilder.h>
+	<mezza/str/TStringVector.h>
+
+1668877241 c:\users\danilo\lab\libs\\mezza\str\stringutils.h
+	<stdarg.h>
+	"../Type.h"
+
+1668877241 c:\users\danilo\lab\libs\\mezza\str\stringbuilder.h
+	<stdio.h>
+	"../base/TMemMgr.h"
+	"../str/TString.h"
+	"../base/Exceptions.h"
+
+1668877241 c:\users\danilo\lab\libs\\mezza\str\tstringvector.h
+	"../base/TMemMgr.h"
+	"../base/Exceptions.h"
+	"../str/TString.h"
+

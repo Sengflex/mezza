@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="mezza" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="DLL_Debug">
+				<Option output="build/bin/debug/libmezza" prefix_auto="1" extension_auto="1" />
+				<Option object_output="build/obj/debug/" />
+				<Option type="3" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Option createStaticLib="1" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="DLL_Release">
+				<Option output="build/bin/release/libmezza" prefix_auto="1" extension_auto="1" />
+				<Option object_output="build/obj/release/" />
+				<Option type="3" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Option createStaticLib="1" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+			<Target title="Tests">
+				<Option output="build/bin/tests/mezza-tests.exe" prefix_auto="0" extension_auto="0" />
+				<Option working_dir="./build/bin/debug" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add directory="../" />
+				</Compiler>
+				<Linker>
+					<Add library="mezza" />
+					<Add directory="./build/bin/debug" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add directory="../sqlite3" />
+		</Compiler>
+		<Linker>
+			<Add library="sqlite3" />
+			<Add directory="../sqlite3" />
+		</Linker>
+		<Unit filename="Conf.c">
+			<Option compilerVar="CC" />
+			<Option target="DLL_Debug" />
+			<Option target="DLL_Release" />
+		</Unit>
+		<Unit filename="Conf.h">
+			<Option target="DLL_Debug" />
+			<Option target="DLL_Release" />
+		</Unit>
+		<Unit filename="FileUtil.c">
+			<Option compilerVar="CC" />
+			<Option target="DLL_Debug" />
+			<Option target="DLL_Release" />
+		</Unit>
+		<Unit filename="FileUtil.h">
+			<Option target="DLL_Debug" />
+			<Option target="DLL_Release" />
+		</Unit>
+		<Unit filename="Lang.h">
+			<Option target="DLL_Debug" />
+			<Option target="DLL_Release" />
+		</Unit>
+		<Unit filename="OnError.h">
+			<Option target="DLL_Debug" />
+			<Option target="DLL_Release" />
+		</Unit>
+		<Unit filename="SimpleTest.h">
+			<Option target="DLL_Debug" />
+			<Option target="DLL_Release" />
+		</Unit>
+		<Unit filename="Type.h">
+			<Option target="DLL_Debug" />
+			<Option target="DLL_Release" />
+		</Unit>
+		<Unit filename="_tests/collections.c">
+			<Option compilerVar="CC" />
+			<Option target="Tests" />
+		</Unit>
+		<Unit filename="_tests/conf.c">
+			<Option compilerVar="CC" />
+			<Option target="Tests" />
+		</Unit>
+		<Unit filename="_tests/dbase.c">
+			<Option compilerVar="CC" />
+			<Option target="Tests" />
+		</Unit>
+		<Unit filename="_tests/exceptions.c">
+			<Option compilerVar="CC" />
+			<Option target="Tests" />
+		</Unit>
+		<Unit filename="_tests/file.c">
+			<Option compilerVar="CC" />
+			<Option target="Tests" />
+		</Unit>
+		<Unit filename="_tests/list.c">
+			<Option compilerVar="CC" />
+			<Option target="Tests" />
+		</Unit>
+		<Unit filename="_tests/main.c">
+			<Option compilerVar="CC" />
+			<Option target="Tests" />
+		</Unit>
+		<Unit filename="_tests/mem.c">
+			<Option compilerVar="CC" />
+			<Option target="Tests" />
+		</Unit>
+		<Unit filename="_tests/objects.c">
+			<Option compilerVar="CC" />
+			<Option target="Tests" />
+		</Unit>
+		<Unit filename="_tests/str.c">
+			<Option compilerVar="CC" />
+			<Option target="Tests" />
+		</Unit>
+		<Unit filename="base/Exceptions.c">
+			<Option compilerVar="CC" />
+			<Option target="DLL_Debug" />
+			<Option target="DLL_Release" />
+		</Unit>
+		<Unit filename="base/Exceptions.h">
+			<Option target="DLL_Debug" />
+			<Option target="DLL_Release" />
+		</Unit>
+		<Unit filename="base/TList.c">
+			<Option compilerVar="CC" />
+			<Option target="DLL_Debug" />
+			<Option target="DLL_Release" />
+		</Unit>
+		<Unit filename="base/TList.h">
+			<Option target="DLL_Debug" />
+			<Option target="DLL_Release" />
+		</Unit>
+		<Unit filename="base/TMemMgr.c">
+			<Option compilerVar="CC" />
+			<Option target="DLL_Debug" />
+			<Option target="DLL_Release" />
+		</Unit>
+		<Unit filename="base/TMemMgr.h">
+			<Option target="DLL_Debug" />
+			<Option target="DLL_Release" />
+		</Unit>
+		<Unit filename="base/TObject.c">
+			<Option compilerVar="CC" />
+			<Option target="DLL_Debug" />
+			<Option target="DLL_Release" />
+		</Unit>
+		<Unit filename="base/TObject.h">
+			<Option target="DLL_Debug" />
+			<Option target="DLL_Release" />
+		</Unit>
+		<Unit filename="collections/Map.c">
+			<Option compilerVar="CC" />
+			<Option target="DLL_Debug" />
+			<Option target="DLL_Release" />
+		</Unit>
+		<Unit filename="collections/Map.h">
+			<Option target="DLL_Debug" />
+			<Option target="DLL_Release" />
+		</Unit>
+		<Unit filename="collections/TokenSet.c">
+			<Option compilerVar="CC" />
+			<Option target="DLL_Debug" />
+			<Option target="DLL_Release" />
+		</Unit>
+		<Unit filename="collections/TokenSet.h">
+			<Option target="DLL_Debug" />
+			<Option target="DLL_Release" />
+		</Unit>
+		<Unit filename="dbase/TDBField.c">
+			<Option compilerVar="CC" />
+			<Option target="DLL_Debug" />
+			<Option target="DLL_Release" />
+		</Unit>
+		<Unit filename="dbase/TDBField.h">
+			<Option target="DLL_Debug" />
+			<Option target="DLL_Release" />
+		</Unit>
+		<Unit filename="dbase/TDBRow.c">
+			<Option compilerVar="CC" />
+			<Option target="DLL_Debug" />
+			<Option target="DLL_Release" />
+		</Unit>
+		<Unit filename="dbase/TDBRow.h">
+			<Option target="DLL_Debug" />
+			<Option target="DLL_Release" />
+		</Unit>
+		<Unit filename="dbase/TDBTable.c">
+			<Option compilerVar="CC" />
+			<Option target="DLL_Debug" />
+			<Option target="DLL_Release" />
+		</Unit>
+		<Unit filename="dbase/TDBTable.h">
+			<Option target="DLL_Debug" />
+			<Option target="DLL_Release" />
+		</Unit>
+		<Unit filename="dbase/TDBType.h">
+			<Option target="DLL_Debug" />
+			<Option target="DLL_Release" />
+		</Unit>
+		<Unit filename="dbase/TSQLite3Conn.c">
+			<Option compilerVar="CC" />
+			<Option target="DLL_Debug" />
+			<Option target="DLL_Release" />
+		</Unit>
+		<Unit filename="dbase/TSQLite3Conn.h">
+			<Option target="DLL_Debug" />
+			<Option target="DLL_Release" />
+		</Unit>
+		<Unit filename="str/StringBuilder.c">
+			<Option compilerVar="CC" />
+			<Option target="DLL_Debug" />
+			<Option target="DLL_Release" />
+		</Unit>
+		<Unit filename="str/StringBuilder.h">
+			<Option target="DLL_Debug" />
+			<Option target="DLL_Release" />
+		</Unit>
+		<Unit filename="str/StringUtils.c">
+			<Option compilerVar="CC" />
+			<Option target="DLL_Debug" />
+			<Option target="DLL_Release" />
+		</Unit>
+		<Unit filename="str/StringUtils.h">
+			<Option target="DLL_Debug" />
+			<Option target="DLL_Release" />
+		</Unit>
+		<Unit filename="str/TString.c">
+			<Option compilerVar="CC" />
+			<Option target="DLL_Debug" />
+			<Option target="DLL_Release" />
+		</Unit>
+		<Unit filename="str/TString.h">
+			<Option target="DLL_Debug" />
+			<Option target="DLL_Release" />
+		</Unit>
+		<Unit filename="str/TStringVector.c">
+			<Option compilerVar="CC" />
+			<Option target="DLL_Debug" />
+			<Option target="DLL_Release" />
+		</Unit>
+		<Unit filename="str/TStringVector.h">
+			<Option target="DLL_Debug" />
+			<Option target="DLL_Release" />
+		</Unit>
+		<Extensions />
+	</Project>
+</CodeBlocks_project_file>
